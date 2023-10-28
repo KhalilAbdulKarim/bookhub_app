@@ -1,14 +1,22 @@
 const express = require("express");
 const moment = require("moment");
+
 const mysql = require("mysql2");
+const {query} = require("./db/database");
+require('dotenv').config();
+
 const bodyParser = require('body-parser');
 
+const port = process.env.APP_PORT;
 const app = express();
 
-const port = process.env.APP_PORT;
+app.listen(port,()=>{
+    console.log(`my app is listening on port : ${port}`);
+})
 
 app.get("/",(req,res)=>{
-    res.status(200).json({message: "Index Page ..."})
+    res.status(200).json({message: "Index Page ..."}) 
 });
 
+// app.use('/api/users', userRoute);
 
