@@ -1,10 +1,11 @@
 const express = require ("express");
 const { getAllUsersController, createUserController, updateUserController} = require('../controllers/userController'); 
 const { getUserByID, deleteUser } = require('../services/userService');
+const {createUserValidation,updateUserValidation} = require('../validations/user-validator');
 const router = express.Router();
 
-router('/users',getAllUsersController); // read
-router('/user',getUserByID); // read
-router.post('/user',createUserController); // create,insert
-router.put('/user',updateUserController); // update
+router.get('/users',getAllUsersController); // read
+router.get('/user',getUserByID); // read
+router.post('/user',createUserController,createUserValidation); // create,insert
+router.put('/user',updateUserController,updateUserValidation); // update
 router.delete('/user',deleteUser);// delete

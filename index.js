@@ -18,5 +18,9 @@ app.get("/",(req,res)=>{
     res.status(200).json({message: "Index Page ..."}) 
 });
 
-// app.use('/api/users', userRoute);
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+const userRoute = require('./routes/user.route');
+app.use('/api/users', userRoute);
 
