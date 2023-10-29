@@ -61,14 +61,15 @@ const updateUser = async (users) => {
     }
 }
 
-const deleteUser = async (id) =>{
-    try{
+const deleteUser = async (id) => {
+    try {
         return await query("DELETE FROM USERS WHERE userID = ?", [id]);
-    }catch(error){
+    } catch (error) {
         throw new Error(error);
     }
 
 }
+
 module.exports = {
     getUsers,
     getUserByID,
