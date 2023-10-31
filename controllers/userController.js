@@ -1,51 +1,62 @@
-const {getUsers,createUser,updateUser,deleteUser} = require("../services/usersService");
-const {validationResult} = require("express-validator");
+const { getUsers, getUserByID, createUser, updateUser, deleteUser } = require("../services/usersService");
+const { validationResult } = require("express-validator");
 
-const getAllUsersController = async(req,res) => {
-    try{
+const getAllUsersController = async (req, res) => {
+    try {
         const users = await getUsers();
-        res.status(200).json({users});
-    } catch (error){
-        res.status(500).json({message:error?.message});
+        res.status(200).json({ users });
+    } catch (error) {
+        res.status(500).json({ message: error?.message });
     }
 }
+// const getUserByIDController = async (req, res) => {
+//     try {
+//         const userID = req.params.id;
+//         const user = await getUserByID(userID);
+//         res.status(200).json({ user });
 
-const createUserController = async (req,res) => {
+//     } catch (error) {
+//         res.status(500).json({ message: error?.message });
+//     }
+// }
+
+
+const createUserController = async (req, res) => {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty()){
+    if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const {userName, userPassword, userEmail, dob} = req.body;
+    const { userName, userPassword, userEmail, dob } = req.body;
 
-    try{
-        const response = await createUser(userName, userPassword, userEmail,dob)
+    try {
+        const response = await createUser(userName, userPassword, userEmail, dob)
         res.status(201).json({ response });
-    }catch(error){
+    } catch (error) {
         res.status(500).json({ error: error?.message });
     }
 
 }
 
-const updateUserController = async (req,res) =>{
-    const { userID, userName, userEmail,userPassword,dob} = req.body;
+const updateUserController = async (req, res) => {
+    const { userID, userName, userEmail, userPassword, dob } = req.body;
     if (!userID) {
         return res.status(400).json({ message: "missing data" })
     }
 
     try {
-        const response = await updateUser(userID, userName, userEmail,userPassword,dob);
+        const response = await updateUser(userID, userName, userEmail, userPassword, dob);
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
     }
 }
 
-const deleteUserController = async (req,res) => {
-    const {userID} = req.body;
+const deleteUserController = async (req, res) => {
+    const { userID } = req.body;
 
-    if(!userID){
+    if (!userID) {
         return res.status(400).json({ message: "missing user id" });
     }
     try {
@@ -60,8 +71,7 @@ const deleteUserController = async (req,res) => {
 
 module.exports = {
     getAllUsersController,
+    // getUserByIDController,
     createUserController,
     updateUserController,
-    
-
 }
