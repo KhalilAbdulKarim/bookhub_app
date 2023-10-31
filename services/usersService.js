@@ -1,6 +1,11 @@
 const { query } = require("../db/database");
 const moment = require("moment");
 
+/**
+ * 
+ * @returns 
+ */
+
 const getUsers = async () => {
     try {
         let sql = `SELECT * FROM USERS`;
@@ -10,7 +15,11 @@ const getUsers = async () => {
         throw new Error(error);
     }
 }
-
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 const getUserByID = async (id) => {
     try {
         let sql = `SELECT * FROM USERS WHERE userID = ? `;
@@ -21,7 +30,15 @@ const getUserByID = async (id) => {
 
     }
 }
-
+/**
+ * 
+ * @param {String} userName 
+ * @param {*} userPassword 
+ * @param {*} userEmail 
+ * @param {Date} dob 
+ * Insert A user into database
+ * @returns 
+ */
 const createUser = async (userName, userPassword, userEmail, dob) => {
     try {
         let sql =
@@ -42,7 +59,11 @@ const createUser = async (userName, userPassword, userEmail, dob) => {
         throw new Error(error);
     }
 }
-
+/**
+ * 
+ * @param {*} users 
+ * @returns 
+ */
 const updateUser = async (users) => {
     try {
         const { userID, userName, userPassword, userEmail, dob } = users;
