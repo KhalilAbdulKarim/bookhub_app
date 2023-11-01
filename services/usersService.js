@@ -43,7 +43,7 @@ const createUser = async (userName, userPassword, userEmail, dob) => {
     try {
         let sql =
             `INSERT INTO USERS (userName,userPassword,userEmail,dob)
-        VALUES (?, ?, ?, ?);`;
+            VALUES (?, ?, ?, ?);`;
 
         const result = await query(sql, [
             userName,
@@ -51,8 +51,9 @@ const createUser = async (userName, userPassword, userEmail, dob) => {
             userEmail,
             moment(dob).format("YYYY-MM-DD")
         ]);
+        console.log('Insert Result:', result);
 
-        let insertedUser = await query(`SELECT * FROM USERS WHERE userID = ? `, [result?.insertID]);
+        let insertedUser = await query(`SELECT * FROM USERS WHERE userID = ? `, [result?.insertId]);
         return insertedUser;
 
     } catch (error) {
