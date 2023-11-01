@@ -47,7 +47,7 @@ const createRecommendation = async (bookID, recommenderUserID, recipientUserID) 
         const result = await query(sql, [bookID, recommenderUserID, recipientUserID]);
 
         
-        let insertedRecommendation = await query(`SELECT * FROM RECOMMENDATION WHERE recommendationID = ?`, [result?.insertID]);
+        let insertedRecommendation = await query(`SELECT * FROM RECOMMENDATION WHERE recommendationID = ?`, [result?.insertId]);
         return insertedRecommendation; 
         //insertedRecommendation[0]
     } catch (error) {

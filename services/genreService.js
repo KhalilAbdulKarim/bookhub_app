@@ -29,7 +29,7 @@ const createGenre = async (genreName) => {
 
         const result = await query (sql,genreName);
 
-        let insertedGenre = await query (`SELECT * FROM GENRE WHERE genreID = ? `,[result?.insertID]);
+        let insertedGenre = await query (`SELECT * FROM GENRE WHERE genreID = ? `,[result?.insertId]);
         return insertedGenre;
 
     } catch(error){

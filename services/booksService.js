@@ -49,7 +49,7 @@ const createBook = async (title, publishedDate, ISBN, genreName, authorID) => {
         ]);
 
         
-        let insertedBook = await query(`SELECT * FROM BOOKS WHERE bookID = ?`, [result?.insertID]);
+        let insertedBook = await query(`SELECT * FROM BOOKS WHERE bookID = ?`, [result?.insertId]);
         return insertedBook;
 
     } catch (error) {

@@ -43,7 +43,7 @@ const createReview = async (userID, bookID, rating, datePosted, reviewText) => {
         const result = await query(sql, [userID, bookID, rating, moment(datePosted).format(YYYY - MM - DD), reviewText]);
 
         // Optionally: Retrieve the newly inserted review
-        let insertedReview = await query(`SELECT * FROM REVIEWS WHERE reviewID = ?`, [result?.insertID]);
+        let insertedReview = await query(`SELECT * FROM REVIEWS WHERE reviewID = ?`, [result?.insertId]);
         return insertedReview[0];
 
     } catch (error) {
