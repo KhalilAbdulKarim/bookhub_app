@@ -9,16 +9,16 @@ const getAllUsersController = async (req, res) => {
         res.status(500).json({ message: error?.message });
     }
 }
-// const getUserByIDController = async (req, res) => {
-//     try {
-//         const userID = req.params.id;
-//         const user = await getUserByID(userID);
-//         res.status(200).json({ user });
+const getUserByIDController = async (req, res) => {
+    try {
+        const userID = req.params.id;
+        const user = await getUserByID(userID);
+        res.status(200).json({ user });
 
-//     } catch (error) {
-//         res.status(500).json({ message: error?.message });
-//     }
-// }
+    } catch (error) {
+        res.status(500).json({ message: error?.message });
+    }
+}
 
 
 const createUserController = async (req, res) => {
@@ -71,7 +71,7 @@ const deleteUserController = async (req, res) => {
 
 module.exports = {
     getAllUsersController,
-    // getUserByIDController,
+    getUserByIDController,
     createUserController,
     updateUserController,
 }
