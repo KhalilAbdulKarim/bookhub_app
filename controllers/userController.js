@@ -74,4 +74,5 @@ module.exports = {
     getUserByIDController,
     createUserController,
     updateUserController,
+    deleteUserController,
 }

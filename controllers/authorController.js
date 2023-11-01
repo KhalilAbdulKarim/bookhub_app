@@ -63,6 +63,5 @@ module.exports = {
     getAllAuthorsController,
     createAuthorController,
     updateAuthorController,
-
-
+    deleteAuthorController
 }

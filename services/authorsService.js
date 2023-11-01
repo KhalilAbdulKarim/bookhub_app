@@ -36,7 +36,7 @@ const createAuthor = async (authorName,authorEmail,authorPassword,dob,bio) => {
             bio
         ]);
 
-        let insertedAuthor = await query(`SELECT * FROM AUTHORS WHERE authorID = ? `, [result?.insertID]);
+        let insertedAuthor = await query(`SELECT * FROM AUTHORS WHERE authorID = ? `, [result?.insertId]);
         return insertedAuthor;
 
     } catch (error) {
