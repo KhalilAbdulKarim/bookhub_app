@@ -1,8 +1,23 @@
 const { query } = require("../db/database");
 const moment = require("moment");
 
+
+
+const authenticate = async (userName, userPassword) => {
+    try {
+        let sql = `SELECT * FROM USERS WHERE userName = ? 
+        AND userPassword = ? `;
+        const user = await query (sql,[userName, userPassword]);
+        return user[0];
+    } catch (err) {
+        throw new Error (err);
+    }
+
+}
+
+
 /**
- * 
+ * Read All users From Database
  * @returns 
  */
 
@@ -17,9 +32,11 @@ const getUsers = async () => {
 }
 /**
  * 
- * @param {*} id 
+ * @param {int} id 
  * @returns 
+ * Read a user from database based on user id 
  */
+
 const getUserByID = async (id) => {
     try {
         let sql = `SELECT * FROM USERS WHERE userID = ? `;
@@ -30,11 +47,12 @@ const getUserByID = async (id) => {
 
     }
 }
+
 /**
  * 
  * @param {String} userName 
- * @param {*} userPassword 
- * @param {*} userEmail 
+ * @param {String} userPassword 
+ * @param {string} userEmail 
  * @param {Date} dob 
  * Insert A user into database
  * @returns 
@@ -93,6 +111,7 @@ const deleteUser = async (id) => {
 }
 
 module.exports = {
+    authenticate,
     getUsers,
     getUserByID,
     createUser,

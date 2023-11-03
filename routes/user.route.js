@@ -1,10 +1,12 @@
 const express = require("express");
-const { getAllUsersController, getUserByIDController, createUserController, updateUserController,deleteUserController} = require('../controllers/userController');
+const { authenticateController, getAllUsersController, getUserByIDController, createUserController, updateUserController,deleteUserController} = require('../controllers/userController');
 const { getUserByID, deleteUser } = require('../services/usersService');
 const { createUserValidation, updateUserValidation } = require('../validations/user-validator');
+const authenticateToken = require('./middleware');
 const router = express.Router();
 
-router.get('/users', getAllUsersController); // read
+router.post('/authenticate',authenticateController); // create
+router.get('/users',authenticateToken, getAllUsersController); // read
 router.get('/user/:id', getUserByIDController); // read
 router.post('/user', createUserValidation, createUserController); // create 
 
