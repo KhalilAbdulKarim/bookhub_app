@@ -2,6 +2,9 @@ const { getUsers, getUserByID, createUser, updateUser, deleteUser } = require(".
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
+
+// jwt token 
+
 const authenticateController = async(req, res)=>{
     const {userName, userPassword}  = req.body;
     if(!userName){
