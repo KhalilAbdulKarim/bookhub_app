@@ -22,29 +22,29 @@ const getBookByID = async (id) => {
     }
 }
 
-const createBook = async (title, publishedDate, ISBN, genreName, authorID) => {
+const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
     try {
         // Check if authorID exists in the author table
         const authorExists = await query(`SELECT 1 FROM AUTHOR WHERE authorID = ?`, [authorID]);
         if (!authorExists.length) {
-            throw new Error('Provided author ID does not exist in the author table.');
+            throw new Error('Provided author id does not exist in the author table.');
         }
 
-        // Check if genreName exists in the genre table
-        const genreExists = await query(`SELECT 1 FROM GENRE WHERE genreName = ?`, [genreName]);
+        // Check if genreID exists in the genre table
+        const genreExists = await query(`SELECT 1 FROM GENRE WHERE genreID = ?`, [genreID]);
 
         if (!genreExists.length) {
-            throw new Error('Provided genreName does not exist in the genre table.');
+            throw new Error('Provided genre id does not exist in the genre table.');
         }
        
-        let sql = `INSERT INTO BOOKS(title, publishedDate, ISBN, genreName, authorID)
+        let sql = `INSERT INTO BOOKS(title, publishedDate, ISBN, genreID, authorID)
         VALUES (?, ?, ?, ?, ?);`;
 
         const result = await query(sql, [
             title,
             moment(publishedDate).format("YYYY-MM-DD"),
             ISBN,
-            genreName,
+            genreID,
             authorID
         ]);
 
@@ -60,16 +60,16 @@ const createBook = async (title, publishedDate, ISBN, genreName, authorID) => {
 
     const updateBook = async (books) => {
         try {
-            const { bookID,title,publishedDate,ISBN,genreName} = books;
+            const { bookID,title,publishedDate,ISBN,genreID} = books;
     
             let sql = `UPDATE BOOKS SET
             title = ?,
             publishedDate = ?,
             ISBN = ?,
-            genreName = ?
+            genreID = ?
             WHERE bookID = ?; 
             `;
-            const result = await query(sql, [ bookID,title,ISBN,genreName, moment(publishedDate).format(YYYY - MM - DD)]);
+            const result = await query(sql, [ bookID,title,ISBN,genreID, moment(publishedDate).format(YYYY - MM - DD)]);
             return result;
         } catch (error) {
             throw new Error(error);

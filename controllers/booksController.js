@@ -17,10 +17,10 @@ const createBookController = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title, publishedDate, ISBN, genreName, authorID } = req.body;
+    const { title, publishedDate, ISBN, genreID, authorID } = req.body;
 
     try {
-        const response = await createBook(title, publishedDate, ISBN, genreName, authorID)
+        const response = await createBook(title, publishedDate, ISBN, genreID, authorID)
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
@@ -29,13 +29,13 @@ const createBookController = async (req, res) => {
 }
 
 const updateBookController = async (req, res) => {
-    const { bookID, title, publishedDate, ISBN, genreName } = req.body;
+    const { bookID, title, publishedDate, ISBN, genreID } = req.body;
     if (!bookID) {
         return res.status(400).json({ message: "missing data" })
     }
 
     try {
-        const response = await updateBook(bookID, title, publishedDate, ISBN, genreName);
+        const response = await updateBook(bookID, title, publishedDate, ISBN, genreID);
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
@@ -60,4 +60,5 @@ module.exports = {
     getAllBooksController,
     createBookController,
     updateBookController,
+    deleteBookController
 }
