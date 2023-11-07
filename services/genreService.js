@@ -1,5 +1,4 @@
 const { query } = require("../db/database");
-const moment = require("moment");
 
 const getGenres = async () => {
     try {
@@ -22,23 +21,23 @@ const getGenreByID = async (id) => {
     }
 }
 
-const createGenre = async (genreName) => {
-    try{
-        let sql = `INSERT INTO GENRE (genreName)
-        VALUES (?);`;
+// const createGenre = async (genreName) => {
+//     try{
+//         let sql = `INSERT INTO GENRE (genreName)
+//         VALUES (?);`;
 
-        const result = await query (sql,genreName);
+//         const result = await query (sql,genreName);
 
-        let insertedGenre = await query (`SELECT * FROM GENRE WHERE genreID = ? `,[result?.insertId]);
-        return insertedGenre;
+//         let insertedGenre = await query (`SELECT * FROM GENRE WHERE genreID = ? `,[result?.insertId]);
+//         return insertedGenre;
 
-    } catch(error){
-        throw new Error(error);
-    }
-}
+//     } catch(error){
+//         throw new Error(error);
+//     }
+// }
 
 module.exports = {
     getGenres,
     getGenreByID,
-    createGenre,
+    // createGenre,
 }
