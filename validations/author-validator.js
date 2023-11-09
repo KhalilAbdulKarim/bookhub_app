@@ -2,8 +2,8 @@ const{check} = require("express-validator");
 
 const createAuthorValidation = [
     check('authorName').notEmpty().withMessage('Author name is required'),
-    check('authorEmail').isEmail().withMessage('Invalid Email Format'),
-    check('authorPassword').notEmpty().withMessage('User Password is required'),
+    check('authorEmail').isEmail().withMessage('Invalid email format'),
+    check('authorPassword').notEmpty().withMessage('Password is required'),
     check('authorPassword').isLength({min:5}).withMessage('Password must be at least 5 characters long'),
     check('userPassword').isStrongPassword().withMessage('You entered a weak password'),
     check('dob').notEmpty().withMessage('Date of Birth can not be Empty'),
@@ -11,10 +11,10 @@ const createAuthorValidation = [
 ];
 
 const updateAuthorValidation = [
-    check('authorID').notEmpty().withMessage('User Id is required'),
-    check('authorName').notEmpty().withMessage('User Name is required'),
+    check('authorID').notEmpty().withMessage('Author Id is required'),
+    check('authorName').notEmpty().withMessage('Author Name is required'),
     check('authorEmail').isEmail().withMessage('Invalid Email Format'),
-    check('authorPassword').notEmpty().withMessage('User Password is required'),
+    check('authorPassword').notEmpty().withMessage('Password is required'),
     check('authorPassword').isLength({min:5}).withMessage('Password must be at least 5 characters long'),
     check('dob').notEmpty().withMessage('Date of Birth can not be Empty'),
     check('dob').isDate().withMessage('Date of Birth must be a valid date'),
