@@ -11,10 +11,10 @@ const getBooks = async () => {
     }
 }
 
-const getBookByID = async (id) => {
+const getBookByID = async (bookID) => {
     try {
         let sql = `SELECT * FROM BOOKS WHERE bookID = ? `;
-        const book = await query(sql, [id]);
+        const book = await query(sql, [bookID]);
         return book;
     } catch (error) {
         throw new Error(error);
@@ -69,7 +69,7 @@ const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
             genreID = ?
             WHERE bookID = ?; 
             `;
-            const result = await query(sql, [ bookID,title,ISBN,genreID, moment(publishedDate).format(YYYY - MM - DD)]);
+            const result = await query(sql, [ bookID,title,ISBN,genreID, moment(publishedDate).format("YYYY - MM - DD")]);
             return result;
         } catch (error) {
             throw new Error(error);

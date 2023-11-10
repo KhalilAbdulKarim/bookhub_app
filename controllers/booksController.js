@@ -1,10 +1,21 @@
-const { getBooks, createBook, updateBook, deleteBook } = require("../services/booksService");
+const { getBooks,getBookByID,createBook, updateBook, deleteBook } = require("../services/booksService");
 const { validationResult } = require("express-validator");
 
 const getAllBooksController = async (req, res) => {
     try {
         const books = await getBooks();
         res.status(200).json({ books });
+    } catch (error) {
+        res.status(500).json({ message: error?.message });
+    }
+}
+
+const getBookByIDController = async (req,res)=>{
+    try {
+        const bookID = req.params.id;
+        const book = await getBookByID(bookID);
+        res.status(200).json({ book });
+
     } catch (error) {
         res.status(500).json({ message: error?.message });
     }
@@ -58,6 +69,7 @@ const deleteBookController = async (req, res) => {
 
 module.exports = {
     getAllBooksController,
+    getBookByIDController,
     createBookController,
     updateBookController,
     deleteBookController

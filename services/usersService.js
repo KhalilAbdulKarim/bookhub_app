@@ -3,17 +3,17 @@ const moment = require("moment");
 
 
 
-const authenticate = async (userName, userPassword) => {
-    try {
-        let sql = `SELECT * FROM USERS WHERE userName = ? 
-        AND userPassword = ? `;
-        const user = await query (sql,[userName, userPassword]);
-        return user[0];
-    } catch (err) {
-        throw new Error (err);
-    }
+// const authenticate = async (userName, userPassword) => {
+//     try {
+//         let sql = `SELECT * FROM USERS WHERE userName = ? 
+//         AND userPassword = ? `;
+//         const user = await query (sql,[userName, userPassword]);
+//         return user[0];
+//     } catch (err) {
+//         throw new Error (err);
+//     }
 
-}
+// }
 
 
 /**
@@ -111,7 +111,6 @@ const deleteUser = async (id) => {
 }
 
 module.exports = {
-    authenticate,
     getUsers,
     getUserByID,
     createUser,

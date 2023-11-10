@@ -106,7 +106,7 @@ const deleteRecommendation = async (id) =>{
 
 }
 
-module.export = {
+module.exports = {
     getRecommendations,
     getRecommendationsByID,
     createRecommendation,

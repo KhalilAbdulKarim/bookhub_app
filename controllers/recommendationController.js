@@ -11,9 +11,9 @@ const getRecommendationsController = async (req, res) => {
 }
 const getRecommendationsByIDController = async (req, res) => {
     try {
-        const genreID = req.params.id;
-        const genre = await getRecommendationsByID(genreID);
-        res.status(200).json({ genre });
+        const recommendationID = req.params.id;
+        const recommendation = await getRecommendationsByID(recommendationID);
+        res.status(200).json({ recommendation });
     } catch (error) {
         res.status(500).json({ message: error?.message });
     }
@@ -55,7 +55,7 @@ const deleteRecommendationController = async (req, res) => {
         return res.status(400).json({ message: "Missing recommendation id" });
     }
     try {
-        const result = await deleteRecommendation(id);
+        const result = await deleteRecommendation(recommendationID);
         res.status(200).json({ result });
     } catch (error) {
         res.status(500).json({ message: error?.message });
