@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.get('/books',getAllBooksController,getBooks);
 router.get('/book/:id',getBookByIDController,getBookByID);
-router.post('/book',createBookController,createBookValidation,createBook);
-router.put('/book',updateBook,updateBookController,updateBookValidation);
-router.delete('/book',deleteBook,deleteBookController);
+router.post('/book',createBookValidation,createBookController,createBook);
+router.put('/book/:id',updateBookValidation,updateBookController,updateBook);
+router.delete('/book/:id',deleteBookController);
 
 module.exports = router;

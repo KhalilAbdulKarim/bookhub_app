@@ -40,13 +40,16 @@ const createBookController = async (req, res) => {
 }
 
 const updateBookController = async (req, res) => {
-    const { bookID, title, publishedDate, ISBN, genreID } = req.body;
+    //bookID comes from route parameter
+    const bookID = req.params.id;
+    const {title, publishedDate, ISBN, genreID,authorID } = req.body;
+
     if (!bookID) {
         return res.status(400).json({ message: "missing data" })
     }
 
     try {
-        const response = await updateBook(bookID, title, publishedDate, ISBN, genreID);
+        const response = await updateBook(bookID,title, publishedDate, ISBN, genreID,authorID);
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
@@ -54,7 +57,7 @@ const updateBookController = async (req, res) => {
 }
 
 const deleteBookController = async (req, res) => {
-    const { bookID } = req.body;
+    const  bookID  = req.params.id;
 
     if (!bookID) {
         return res.status(400).json({ message: "missing book id" });

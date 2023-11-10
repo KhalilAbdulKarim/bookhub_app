@@ -18,6 +18,8 @@ const updateBookValidation = [
     check('ISBN').notEmpty().withMessage('ISBN is required'),
     check('genreID').isInt().withMessage('ID must be an integer number'),
     check('genreID').notEmpty().withMessage('Genre ID is required'),
+    check('authorID').isInt().withMessage('ID must be an integer number'),
+    check('authorID').notEmpty().withMessage('Author ID is required'),
     check('publishedDate').isDate().withMessage('Date must be valid'),
     check ('publishedDate').notEmpty().withMessage('Date cannot be empty')
 

@@ -25,7 +25,7 @@ const getBookByID = async (bookID) => {
 const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
     try {
         // Check if authorID exists in the author table
-        const authorExists = await query(`SELECT 1 FROM AUTHOR WHERE authorID = ?`, [authorID]);
+        const authorExists = await query(`SELECT 1 FROM AUTHORS WHERE authorID = ?`, [authorID]);
         if (!authorExists.length) {
             throw new Error('Provided author id does not exist in the author table.');
         }
@@ -36,7 +36,7 @@ const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
         if (!genreExists.length) {
             throw new Error('Provided genre id does not exist in the genre table.');
         }
-       
+
         let sql = `INSERT INTO BOOKS(title, publishedDate, ISBN, genreID, authorID)
         VALUES (?, ?, ?, ?, ?);`;
 
@@ -48,7 +48,7 @@ const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
             authorID
         ]);
 
-        
+
         let insertedBook = await query(`SELECT * FROM BOOKS WHERE bookID = ?`, [result?.insertId]);
         return insertedBook;
 
@@ -58,32 +58,34 @@ const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
 }
 
 
-    const updateBook = async (books) => {
-        try {
-            const { bookID,title,publishedDate,ISBN,genreID} = books;
-    
-            let sql = `UPDATE BOOKS SET
+const updateBook = async (books) => {
+    try {
+        const { title, publishedDate, ISBN, genreID, authorID, bookID } = books;
+
+        let sql = `UPDATE BOOKS SET
             title = ?,
             publishedDate = ?,
             ISBN = ?,
-            genreID = ?
-            WHERE bookID = ?; 
-            `;
-            const result = await query(sql, [ bookID,title,ISBN,genreID, moment(publishedDate).format("YYYY - MM - DD")]);
-            return result;
-        } catch (error) {
-            throw new Error(error);
-        }
+            genreID = ?,
+            authorID = ?
+            WHERE bookID = ?; `;
+
+        const result = await query(sql, [title, moment(publishedDate).format("YYYY-MM-DD"), ISBN, genreID, authorID, bookID]);
+        return result;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+
+const deleteBook = async (id) => {
+    try {
+        return await query("DELETE FROM BOOKS WHERE bookID = ?", [id]);
+    } catch (error) {
+        throw new Error(error);
     }
 
-    const deleteBook = async (id) =>{
-        try{
-            return await query("DELETE FROM BOOKS WHERE bookID = ?", [id]);
-        }catch(error){
-            throw new Error(error);
-        }
-    
-    }
+}
 
 
 module.exports = {

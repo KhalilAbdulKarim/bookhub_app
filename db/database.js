@@ -23,7 +23,7 @@ const query = async (sql,params) => {
         const [results] = await connection.execute(sql,params);
         return results;
     }catch(error){
-        console.error(`Query error ${sql}:${error.message}`);
+        console.error(`Query error  ${sql}: ${error.message}`);
         throw new Error(error);
     }
 }
