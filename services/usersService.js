@@ -1,21 +1,6 @@
 const { query } = require("../db/database");
 const moment = require("moment");
 
-
-
-// const authenticate = async (userName, userPassword) => {
-//     try {
-//         let sql = `SELECT * FROM USERS WHERE userName = ? 
-//         AND userPassword = ? `;
-//         const user = await query (sql,[userName, userPassword]);
-//         return user[0];
-//     } catch (err) {
-//         throw new Error (err);
-//     }
-
-// }
-
-
 /**
  * Read All users From Database
  * @returns 
@@ -54,7 +39,7 @@ const getUserByID = async (id) => {
  * @param {String} userPassword 
  * @param {string} userEmail 
  * @param {Date} dob 
- * Insert A user into database
+ * Inserts a user into database
  * @returns 
  */
 const createUser = async (userName, userPassword, userEmail, dob) => {
@@ -69,7 +54,7 @@ const createUser = async (userName, userPassword, userEmail, dob) => {
             userEmail,
             moment(dob).format("YYYY-MM-DD")
         ]);
-        console.log('Insert Result:', result);
+        // console.log('Insert Result:', result);
 
         let insertedUser = await query(`SELECT * FROM USERS WHERE userID = ? `, [result?.insertId]);
         return insertedUser;
@@ -83,10 +68,8 @@ const createUser = async (userName, userPassword, userEmail, dob) => {
  * @param {*} users 
  * @returns 
  */
-const updateUser = async (users) => {
+const updateUser = async (userID, userName, userPassword, userEmail, dob) => {
     try {
-        const { userID, userName, userPassword, userEmail, dob } = users;
-
         let sql = `UPDATE USERS SET
         userName = ?,
         userPassword = ?,
@@ -94,7 +77,7 @@ const updateUser = async (users) => {
         dob = ?
         WHERE userID = ?; 
         `;
-        const result = await query(sql, [userID, userName, userPassword, userEmail, moment(dob).format(YYYY - MM - DD)]);
+        const result = await query(sql, [userName, userPassword, userEmail, moment(dob).format("YYYY-MM-DD"),userID]);
         return result;
     } catch (error) {
         throw new Error(error);

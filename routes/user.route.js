@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/users', getAllUsersController); // read
 router.get('/user/:id', getUserByIDController); // read
 router.post('/user', createUserValidation, createUserController); // create 
-router.put('/user', updateUserController, updateUserValidation); // update
-router.delete('/user', deleteUser,deleteUserController);// delete
+router.put('/user/:id',updateUserValidation,updateUserController,); // update
+router.delete('/user/:id',deleteUserController,deleteUser);// delete
 
 module.exports = router;

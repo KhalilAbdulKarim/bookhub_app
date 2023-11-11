@@ -40,13 +40,14 @@ const createUserController = async (req, res) => {
 }
 
 const updateUserController = async (req, res) => {
-    const { userID, userName, userEmail, userPassword, dob } = req.body;
+    const userID = req.params.id;
+    const { userName, userEmail, userPassword, dob } = req.body;
     if (!userID) {
         return res.status(400).json({ message: "missing data" })
     }
 
     try {
-        const response = await updateUser(userID, userName, userEmail, userPassword, dob);
+        const response = await updateUser(userID, userName, userPassword, userEmail, dob);
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
@@ -54,7 +55,7 @@ const updateUserController = async (req, res) => {
 }
 
 const deleteUserController = async (req, res) => {
-    const { userID } = req.body;
+    const  userID  = req.params.id;
 
     if (!userID) {
         return res.status(400).json({ message: "missing user id" });
