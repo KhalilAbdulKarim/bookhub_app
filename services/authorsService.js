@@ -44,19 +44,17 @@ const createAuthor = async (authorName,authorEmail,authorPassword,dob,bio) => {
     }
 }
 
-    const updateAuthor = async (authors) => {
+    const updateAuthor = async (authorID,authorName,authorEmail,authorPassword,dob,bio) => {
         try {
-            const { authorID,authorName,authorEmail,authorPassword,dob,bio } = authors;
-    
             let sql = `UPDATE AUTHORS SET
             authorName = ?,
             authorPassword = ?,
             authorEmail = ?,
-            dob = ?
+            dob = ?,
             bio = ?
             WHERE authorID = ?; 
             `;
-            const result = await query(sql, [authorID,authorName,authorEmail,authorPassword, moment(dob).format(YYYY - MM - DD),bio]);
+            const result = await query(sql, [authorName,authorPassword,authorEmail,moment(dob).format('YYYY-MM-DD'),bio,authorID]);
             return result;
         } catch (error) {
             throw new Error(error);

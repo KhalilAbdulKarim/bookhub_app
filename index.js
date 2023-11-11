@@ -33,19 +33,19 @@ const userRoute = require('./routes/user.route');
 app.use('/api/users', userRoute);
 
 const authorRoute = require('./routes/author.route');
-app.use('/api/authors',authorRoute);
+app.use('/api/authors', authorRoute);
 
 const bookRoute = require('./routes/book.route');
 app.use('/api/books', bookRoute);
 
 const genreRoute = require('./routes/genre.route');
-app.use('/api/genre',genreRoute);
+app.use('/api/genre', genreRoute);
 
 const reviewRoute = require('./routes/review.route');
-app.use('/api/review',reviewRoute);
+app.use('/api/reviews', reviewRoute);
 
 const recommendationRoute = require('./routes/recommendation.route');
-app.use('/api/recommendation',recommendationRoute);
+app.use('/api/recommendations', recommendationRoute);
 
 /**
  * Server Initialization

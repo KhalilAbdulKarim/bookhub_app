@@ -14,7 +14,7 @@ const getReviews = async () => {
 const getReviewByID = async (id) => {
     try {
         let sql = `SELECT * FROM REVIEWS WHERE reviewID = ? `;
-        const review = await query(sql);
+        const review = await query(sql, [id]);
         return review;
     } catch (error) {
         throw new Error(error);
@@ -40,7 +40,7 @@ const createReview = async (userID, bookID, rating, datePosted, reviewText) => {
             VALUES (?, ?, ?, ?, ?);
         `;
 
-        const result = await query(sql, [userID, bookID, rating, moment(datePosted).format(YYYY - MM - DD), reviewText]);
+        const result = await query(sql, [userID, bookID, rating, moment(datePosted).format("YYYY-MM-DD"), reviewText]);
 
         // Optionally: Retrieve the newly inserted review
         let insertedReview = await query(`SELECT * FROM REVIEWS WHERE reviewID = ?`, [result?.insertId]);
@@ -82,7 +82,7 @@ const updateReview = async (reviewID, userID, bookID, rating, datePosted, review
             WHERE reviewID = ?;
         `;
 
-        const result = await query(sql, [userID, bookID, rating, moment(datePosted).format(YYYY - MM - DD), reviewText, reviewID]);
+        const result = await query(sql, [userID, bookID, rating, moment(datePosted).format("YYYY-MM-DD"), reviewText, reviewID]);
         return result;
 
     } catch (error) {
