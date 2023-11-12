@@ -41,13 +41,13 @@ const createRecommendation = async (bookID, recommenderUserID, recipientUserID) 
             throw new Error('Provided recipient User ID does not exist in the users table.');
         }
    
-        let sql = `INSERT INTO recommendation (bookID, recommenderUserID, recipientUserID)
+        let sql = `INSERT INTO RECOMMENDATIONS (bookID, recommenderUserID, recipientUserID)
                    VALUES (?, ?, ?);`;
 
         const result = await query(sql, [bookID, recommenderUserID, recipientUserID]);
 
         
-        let insertedRecommendation = await query(`SELECT * FROM RECOMMENDATION WHERE recommendationID = ?`, [result?.insertId]);
+        let insertedRecommendation = await query(`SELECT * FROM RECOMMENDATIONS WHERE recommendationID = ?`, [result?.insertId]);
         return insertedRecommendation; 
         //insertedRecommendation[0]
     } catch (error) {
@@ -58,7 +58,7 @@ const createRecommendation = async (bookID, recommenderUserID, recipientUserID) 
 const updateRecommendation = async (recommendationID, bookID, recommenderUserID, recipientUserID) => {
     try {
         // Check if the recommendation exists
-        const recommendationExists = await query(`SELECT 1 FROM RECOMMENDATION WHERE recommendationID = ?`, [recommendationID]);
+        const recommendationExists = await query(`SELECT 1 FROM RECOMMENDATIONS WHERE recommendationID = ?`, [recommendationID]);
         if (!recommendationExists.length) {
             throw new Error('Provided recommendationID does not exist.');
         }
@@ -83,7 +83,7 @@ const updateRecommendation = async (recommendationID, bookID, recommenderUserID,
 
         
         let sql = `
-            UPDATE RECOMMENDATION SET
+            UPDATE RECOMMENDATIONS SET
             bookID = ?,
             recommenderUserID = ?,
             recipientUserID = ?
@@ -99,7 +99,7 @@ const updateRecommendation = async (recommendationID, bookID, recommenderUserID,
 
 const deleteRecommendation = async (id) =>{
     try{
-        return await query("DELETE FROM RECOMMENDATION WHERE recommendationID = ?", [id]);
+        return await query("DELETE FROM RECOMMENDATIONS WHERE recommendationID = ?", [id]);
     }catch(error){
         throw new Error(error);
     }
