@@ -22,7 +22,7 @@ const getBookByID = async (bookID) => {
     }
 }
 
-const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
+const createBook = async (title, publishedDate, ISBN, genreID,authorID,synopsis) => {
     try {
         // Check if authorID exists in the author table
         const authorExists = await query(`SELECT 1 FROM AUTHORS WHERE authorID = ?`, [authorID]);
@@ -37,15 +37,16 @@ const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
             throw new Error('Provided genre id does not exist in the genre table.');
         }
 
-        let sql = `INSERT INTO BOOKS(title, publishedDate, ISBN, genreID, authorID)
-        VALUES (?, ?, ?, ?, ?);`;
+        let sql = `INSERT INTO BOOKS(title, publishedDate, ISBN, genreID, authorID,synopsis)
+        VALUES (?, ?, ?, ?, ?, ?);`;
 
         const result = await query(sql, [
             title,
             moment(publishedDate).format("YYYY-MM-DD"),
             ISBN,
             genreID,
-            authorID
+            authorID,
+            synopsis
         ]);
 
 
@@ -58,19 +59,19 @@ const createBook = async (title, publishedDate, ISBN, genreID, authorID) => {
 }
 
 
-const updateBook = async (books) => {
+const updateBook = async (bookID,title, publishedDate, ISBN, genreID, authorID,synopsis) => {
     try {
-        const { title, publishedDate, ISBN, genreID, authorID, bookID } = books;
 
         let sql = `UPDATE BOOKS SET
             title = ?,
             publishedDate = ?,
             ISBN = ?,
             genreID = ?,
-            authorID = ?
+            authorID = ?,
+            synopsis = ?
             WHERE bookID = ?; `;
 
-        const result = await query(sql, [title, moment(publishedDate).format("YYYY-MM-DD"), ISBN, genreID, authorID, bookID]);
+        const result = await query(sql, [title, moment(publishedDate).format("YYYY-MM-DD"), ISBN, genreID, authorID,synopsis,bookID]);
         return result;
     } catch (error) {
         throw new Error(error);

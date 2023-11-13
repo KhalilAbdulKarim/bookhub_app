@@ -28,10 +28,10 @@ const createBookController = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title, publishedDate, ISBN, genreID, authorID } = req.body;
+    const { title, publishedDate, ISBN, genreID,synopsis,authorID } = req.body;
 
     try {
-        const response = await createBook(title, publishedDate, ISBN, genreID, authorID)
+        const response = await createBook(title, publishedDate, ISBN, genreID, authorID,synopsis)
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
@@ -42,14 +42,14 @@ const createBookController = async (req, res) => {
 const updateBookController = async (req, res) => {
     //bookID comes from route parameter
     const bookID = req.params.id;
-    const {title, publishedDate, ISBN, genreID,authorID } = req.body;
+    const {title, publishedDate, ISBN, genreID,authorID,synopsis} = req.body;
 
     if (!bookID) {
         return res.status(400).json({ message: "missing data" })
     }
 
     try {
-        const response = await updateBook(bookID,title, publishedDate, ISBN, genreID,authorID);
+        const response = await updateBook(bookID,title, publishedDate, ISBN, genreID,authorID,synopsis);
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
