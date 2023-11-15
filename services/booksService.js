@@ -59,19 +59,18 @@ const createBook = async (title, publishedDate, ISBN, genreID,authorID,synopsis)
 }
 
 
-const updateBook = async (bookID,title, publishedDate, ISBN, genreID, authorID,synopsis) => {
+const updateBook = async (bookID,title, publishedDate, genreID, authorID,synopsis) => {
     try {
 
         let sql = `UPDATE BOOKS SET
             title = ?,
             publishedDate = ?,
-            ISBN = ?,
             genreID = ?,
             authorID = ?,
             synopsis = ?
             WHERE bookID = ?; `;
 
-        const result = await query(sql, [title, moment(publishedDate).format("YYYY-MM-DD"), ISBN, genreID, authorID,synopsis,bookID]);
+        const result = await query(sql, [title, moment(publishedDate).format("YYYY-MM-DD"), genreID, authorID,synopsis,bookID]);
         return result;
     } catch (error) {
         throw new Error(error);
