@@ -1,4 +1,4 @@
-const { getBooks,getBookByID,createBook, updateBook, deleteBook } = require("../services/booksService");
+const { getBooks, getBookByID, createBook, updateBook, deleteBook } = require("../services/booksService");
 const { validationResult } = require("express-validator");
 
 const getAllBooksController = async (req, res) => {
@@ -10,7 +10,7 @@ const getAllBooksController = async (req, res) => {
     }
 }
 
-const getBookByIDController = async (req,res)=>{
+const getBookByIDController = async (req, res) => {
     try {
         const bookID = req.params.id;
         const book = await getBookByID(bookID);
@@ -28,10 +28,10 @@ const createBookController = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title, publishedDate, ISBN, genreID,synopsis,authorID } = req.body;
+    const { title, publishedDate, ISBN, genreID, synopsis, authorID } = req.body;
 
     try {
-        const response = await createBook(title, publishedDate, ISBN, genreID, authorID,synopsis)
+        const response = await createBook(title, publishedDate, ISBN, genreID, authorID, synopsis)
         res.status(201).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
@@ -40,24 +40,29 @@ const createBookController = async (req, res) => {
 }
 
 const updateBookController = async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     //bookID comes from route parameter
     const bookID = req.params.id;
-    const {title, publishedDate,genreID,authorID,synopsis} = req.body;
+    const { title, publishedDate, genreID, authorID, synopsis } = req.body;
 
     if (!bookID) {
-        return res.status(400).json({ message: "missing data" })
+        return res.status(400).json({ message: "missing data" });
     }
 
     try {
-        const response = await updateBook(bookID,title, publishedDate,genreID,authorID,synopsis);
-        res.status(201).json({ response });
+        const response = await updateBook(bookID, title, publishedDate, genreID, authorID, synopsis);
+        res.status(200).json({ response });
     } catch (error) {
         res.status(500).json({ error: error?.message });
     }
 }
 
 const deleteBookController = async (req, res) => {
-    const  bookID  = req.params.id;
+    const bookID = req.params.id;
 
     if (!bookID) {
         return res.status(400).json({ message: "missing book id" });

@@ -38,6 +38,7 @@ const createRecommendationController = async (req, res) => {
 const updateRecommendationController = async (req, res) => {
     const recommendationID = req.params.id;
     const { bookID, recommenderUserID, recipientUserID } = req.body;
+    
     if (!recommendationID) {
         return res.status(400).json({ message: "Missing data" })
     }

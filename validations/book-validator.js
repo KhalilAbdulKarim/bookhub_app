@@ -20,11 +20,11 @@ const createBookValidation = [
 ];
 
 const updateBookValidation = [
-    check('bookID').isInt().withMessage('ID must be an integer number'),
-    check('bookID').notEmpty().withMessage('Book ID is required'),
+    check('id').isInt().withMessage('ID must be an integer number'),
+    check('id').notEmpty().withMessage('Book ID is required'),
     check('title').trim().notEmpty().withMessage('Title is required'),
-    check('ISBN').isISBN(13).withMessage('Invalid ISBN-13'),
-    check('ISBN').notEmpty().withMessage('ISBN is required'),
+    // check('ISBN').isISBN(13).withMessage('Invalid ISBN-13'),
+    // check('ISBN').notEmpty().withMessage('ISBN is required'),
     check('genreID').isInt().withMessage('ID must be an integer number'),
     check('genreID').notEmpty().withMessage('Genre ID is required'),
     check('authorID').isInt().withMessage('ID must be an integer number'),
