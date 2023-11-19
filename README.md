@@ -57,9 +57,8 @@ Environment Variables: App and Database Credentials in ```.env```
 
 ## Testing
 
-To start testing, you can use the following commands:
-- `npm run dev`: This will run the app on port ```3002``` in development mode using Nodemon. It will keep watching any changes in your codebase.
-This will start the app at `localhost:3002`, and it will also watch your files for any changes. If there is a change, it will auto-restart the server.
+To start testing, you can use the following command:
+- `npm run dev`: This will start the app at `localhost:3002`, and it will also watch your files for any changes. If there is a change, it will auto-restart the server.
 
 Testing can include using Postman:
 - For example
