@@ -72,7 +72,7 @@ Testing can include using Postman:
  {
     "userName": "user",
     "userPassword": "User@$12345",
-    "userEmail": User"@example.com",
+    "userEmail": "User@example.com",
     "dob": "2022-01-01"
 }
 ```
