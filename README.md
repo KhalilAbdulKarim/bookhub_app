@@ -23,11 +23,11 @@ Welcome to Book Hub API backend repository ! This repository contains the code o
 - ```npm install``` 
 - ```npm install express```
 - ```npm install express-validator```
-- ```npm install express moment```
-- ```npm install express mysql2```
-- ```npm install express nodemon```
-- ```npm install express body-parser```
-- ```npm install express dotenv```
+- ```npm install moment```
+- ```npm install mysql2```
+- ```npm install nodemon```
+- ```npm install body-parser```
+- ```npm install dotenv```
 
 
 ## Project Structure
