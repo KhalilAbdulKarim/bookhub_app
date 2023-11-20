@@ -18,8 +18,8 @@ const createUserValidation = [
 ];
 
 const updateUserValidation = [
-    check('userID').isInt().withMessage('ID must be an integer number'),
-    check('userID').notEmpty().withMessage('User Id is required'),
+    check('id').isInt().withMessage('ID must be an integer number'),
+    check('id').notEmpty().withMessage('User Id is required'),
     check('userName').trim().notEmpty().withMessage('User Name is required'),
     check('userEmail').isEmail().withMessage('Invalid Email Format'),
     check('userPassword').notEmpty().withMessage('User Password is required'),

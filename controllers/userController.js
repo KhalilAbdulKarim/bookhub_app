@@ -45,6 +45,10 @@ const updateUserController = async (req, res) => {
     if (!userID) {
         return res.status(400).json({ message: "missing data" })
     }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     try {
         const response = await updateUser(userID, userName, userPassword, userEmail, dob);
