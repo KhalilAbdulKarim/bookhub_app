@@ -45,7 +45,7 @@ const getBookByIDController = async (req, res) => {
  * @param {object} req 
  * @param {object} res 
  * HTTP Method: POST
- * 201 Created: On successful creation, returns the created author object.
+ * 201 Created: On successful creation, returns the created book object.
  * 400 Bad Request: If validation fails or required data is missing.
  * 500 Internal Server Error: On failure, returns an error message.
  */
@@ -73,7 +73,7 @@ const createBookController = async (req, res) => {
  * @param {object} req 
  * @param {object} res 
  * HTTP Method: PUT
- * 201 Created: On successful update, returns the updated author object.
+ * 201 Created: On successful update, returns the updated book object.
  * 400 Bad Request: If the ID is missing, or validation fails.
  * 500 Internal Server Error: On failure, returns an error message
  */

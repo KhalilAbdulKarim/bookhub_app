@@ -6,7 +6,7 @@ const { validationResult } = require("express-validator");
  * @param {object} req 
  * @param {object} res
  * HTTP Method: GET
- * 200 OK: On success, returns an array of author objects.
+ * 200 OK: On success, returns an array of authors objects.
  * 500 Internal Server Error: On failure, returns an error message.
  */
 
