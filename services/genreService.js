@@ -1,5 +1,10 @@
 const { query } = require("../db/database");
 
+/**
+ * Read All genres From Database
+ * @returns a promise that is an array of genres.
+ */
+
 const getGenres = async () => {
     try {
         let sql = `SELECT * FROM GENRE`;
@@ -9,6 +14,13 @@ const getGenres = async () => {
         throw new Error(error);
     }
 }
+
+/**
+ * 
+ * @param {int} id genre id to retreive
+ * @returns Promise that resolves to a genre
+ * Read an genre from database based on genre id
+ */
 
 const getGenreByID = async (id) => {
     try {
@@ -21,23 +33,8 @@ const getGenreByID = async (id) => {
     }
 }
 
-// const createGenre = async (genreName) => {
-//     try{
-//         let sql = `INSERT INTO GENRE (genreName)
-//         VALUES (?);`;
-
-//         const result = await query (sql,genreName);
-
-//         let insertedGenre = await query (`SELECT * FROM GENRE WHERE genreID = ? `,[result?.insertId]);
-//         return insertedGenre;
-
-//     } catch(error){
-//         throw new Error(error);
-//     }
-// }
 
 module.exports = {
     getGenres,
     getGenreByID,
-    // createGenre,
 }

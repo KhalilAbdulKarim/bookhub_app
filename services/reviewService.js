@@ -1,6 +1,10 @@
 const { query } = require("../db/database");
 const moment = require("moment");
 
+/**
+ * Read All Reviews From Database
+ * @returns a promise that is an array of Reviews objects. 
+ */
 const getReviews = async () => {
     try {
         let sql = `SELECT * FROM REVIEWS`;
@@ -11,6 +15,13 @@ const getReviews = async () => {
     }
 }
 
+/**
+ * 
+ * @param {int} id review id to retreive
+ * @returns Promise that resolves to a review object
+ * Read an review from database based on review id
+ */
+
 const getReviewByID = async (id) => {
     try {
         let sql = `SELECT * FROM REVIEWS WHERE reviewID = ? `;
@@ -20,6 +31,18 @@ const getReviewByID = async (id) => {
         throw new Error(error);
     }
 }
+
+/**
+ * 
+ * @param {int} userID 
+ * @param {int} bookID 
+ * @param {int} rating 
+ * @param {Date} datePosted 
+ * @param {String} reviewText 
+ * Inserts a new Review in the database.
+ * @returns A Promise that resolves to the newly created Review object
+ */
+
 const createReview = async (userID, bookID, rating, datePosted, reviewText) => {
     try {
         // Check if userID exists in the users table
@@ -42,7 +65,7 @@ const createReview = async (userID, bookID, rating, datePosted, reviewText) => {
 
         const result = await query(sql, [userID, bookID, rating, moment(datePosted).format("YYYY-MM-DD"), reviewText]);
 
-        // Optionally: Retrieve the newly inserted review
+
         let insertedReview = await query(`SELECT * FROM REVIEWS WHERE reviewID = ?`, [result?.insertId]);
         return insertedReview[0];
 
@@ -50,6 +73,18 @@ const createReview = async (userID, bookID, rating, datePosted, reviewText) => {
         throw new Error(error);
     }
 }
+
+/**
+ * 
+ * @param {int} reviewID 
+ * @param {int} userID 
+ * @param {int} bookID 
+ * @param {int} rating 
+ * @param {Date} datePosted 
+ * @param {string} reviewText 
+ * Updates an existing review in the database.
+ * @returns A Promise that resolves to the result of the update operation.
+ */
 
 const updateReview = async (reviewID, userID, bookID, rating, datePosted, reviewText) => {
     try {
@@ -89,6 +124,13 @@ const updateReview = async (reviewID, userID, bookID, rating, datePosted, review
         throw new Error(error);
     }
 }
+
+/**
+ * 
+ * @param {int} id The ID of the review to delete passed as parameter
+ * @returns A Promise that resolves to the result of the delete operation.
+ * Deletes an review from database.
+ */
 
 const deleteReview = async (id) => {
     try {

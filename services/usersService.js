@@ -2,8 +2,8 @@ const { query } = require("../db/database");
 const moment = require("moment");
 
 /**
- * Read All users From Database
- * @returns 
+ * Read All Users From Database
+ * @returns a promise that is an array of objects Users
  */
 
 const getUsers = async () => {
@@ -15,11 +15,12 @@ const getUsers = async () => {
         throw new Error(error);
     }
 }
+
 /**
  * 
- * @param {int} id 
- * @returns 
- * Read a user from database based on user id 
+ * @param {int} id Id of the user to retreive
+ * @returns A Promise that resolves to a user object
+ * Read a User from database based on user id 
  */
 
 const getUserByID = async (id) => {
@@ -39,9 +40,10 @@ const getUserByID = async (id) => {
  * @param {String} userPassword 
  * @param {string} userEmail 
  * @param {Date} dob 
- * Inserts a user into database
- * @returns 
+ * Inserts a new User into database.
+ * @returns A Promise that resolves to the newly created User object.
  */
+
 const createUser = async (userName, userPassword, userEmail, dob) => {
     try {
         let sql =
@@ -54,7 +56,7 @@ const createUser = async (userName, userPassword, userEmail, dob) => {
             userEmail,
             moment(dob).format("YYYY-MM-DD")
         ]);
-        // console.log('Insert Result:', result);
+        
 
         let insertedUser = await query(`SELECT * FROM USERS WHERE userID = ? `, [result?.insertId]);
         return insertedUser;
@@ -63,11 +65,18 @@ const createUser = async (userName, userPassword, userEmail, dob) => {
         throw new Error(error);
     }
 }
+
 /**
  * 
- * @param {*} users 
- * @returns 
+ * @param {int} userID 
+ * @param {String} userName  
+ * @param {String} userPassword 
+ * @param {String} userEmail 
+ * @param {Date} dob 
+ * Updates an existing User in the database.
+ * @returns A Promise that resolves to the result of the update operation.
  */
+
 const updateUser = async (userID, userName, userPassword, userEmail, dob) => {
     try {
         let sql = `UPDATE USERS SET
@@ -83,6 +92,14 @@ const updateUser = async (userID, userName, userPassword, userEmail, dob) => {
         throw new Error(error);
     }
 }
+
+
+/**
+ * 
+ * @param {int} id The ID of the User to delete passed as parameter
+ * @returns A Promise that resolves to the result of the delete operation.
+ * Deletes an User from database.
+ */
 
 const deleteUser = async (id) => {
     try {

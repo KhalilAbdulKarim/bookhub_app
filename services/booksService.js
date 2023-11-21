@@ -1,6 +1,11 @@
 const { query } = require("../db/database");
 const moment = require("moment");
 
+/**
+ * Read All Books From Database.
+ * @returns a promise that is an array of Books objects. 
+ */
+
 const getBooks = async () => {
     try {
         let sql = `SELECT * FROM BOOKS`;
@@ -10,6 +15,13 @@ const getBooks = async () => {
         throw new Error(error);
     }
 }
+
+/**
+ * 
+ * @param {int} bookID to retreive
+ * @returns Promise that resolves to a book object
+ * Read an Book from database based on book id
+ */
 
 const getBookByID = async (bookID) => {
     try {
@@ -21,6 +33,18 @@ const getBookByID = async (bookID) => {
 
     }
 }
+
+/**
+ * 
+ * @param {string} title 
+ * @param {Date} publishedDate 
+ * @param {int} ISBN 
+ * @param {int} genreID 
+ * @param {int} authorID 
+ * @param {string} synopsis 
+ * Inserts a new Book in the database.
+ * @returns A Promise that resolves to the newly created Book object
+ */
 
 const createBook = async (title, publishedDate, ISBN, genreID,authorID,synopsis) => {
     try {
@@ -58,6 +82,17 @@ const createBook = async (title, publishedDate, ISBN, genreID,authorID,synopsis)
     }
 }
 
+/**
+ * 
+ * @param {int} bookID 
+ * @param {string} title 
+ * @param {Date} publishedDate 
+ * @param {int} genreID 
+ * @param {int} authorID 
+ * @param {string} synopsis 
+ * Updates an existing book in the database.
+ * @returns A Promise that resolves to the result of the update operation.
+ */
 
 const updateBook = async (bookID,title, publishedDate, genreID, authorID,synopsis) => {
     try {
@@ -76,6 +111,13 @@ const updateBook = async (bookID,title, publishedDate, genreID, authorID,synopsi
         throw new Error(error);
     }
 }
+
+/**
+ * 
+ * @param {int} id The ID of the book to delete passed as parameter
+ * @returns A Promise that resolves to the result of the delete operation.
+ * Deletes an book from database.
+ */
 
 
 const deleteBook = async (id) => {
