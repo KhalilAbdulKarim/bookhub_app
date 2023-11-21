@@ -34,6 +34,16 @@ const getBookByID = async (bookID) => {
     }
 }
 
+const getBookByName = async (bookName)=>{
+    try{
+        let sql = `SELECT * FROM BOOKS WHERE bookName LIKE ?`;
+        const bookNameSearch = await query(sql, [`%${bookName}%`]);
+        return bookNameSearch;
+    }catch(error){
+        throw new Error(error);
+    }
+}
+
 /**
  * 
  * @param {string} title 
