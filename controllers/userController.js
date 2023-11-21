@@ -1,6 +1,16 @@
 const { getUsers, getUserByID, createUser, updateUser, deleteUser } = require("../services/usersService");
 const { validationResult } = require("express-validator");
 
+
+/**
+ * Purpose: Retrieves all users from the database
+ * @param {object} req 
+ * @param {object} res
+ * HTTP Method: GET
+ * 200 OK: On success, returns an array of author objects.
+ * 500 Internal Server Error: On failure, returns an error message.
+ */
+
 const getAllUsersController = async (req, res) => {
     try {
         const users = await getUsers();
@@ -9,6 +19,17 @@ const getAllUsersController = async (req, res) => {
         res.status(500).json({ message: error?.message });
     }
 }
+
+/**
+ * Purpose: Retrieves a user from the database based on URL param id 
+ * HTTP Method: GET
+ * @param {object} req 
+ * @param {object} res 
+ * 200 OK: On success, returns an user object.
+ * 500 Internal Server Error: On failure, returns an error message.
+ */
+
+
 const getUserByIDController = async (req, res) => {
     try {
         const userID = req.params.id;
@@ -20,6 +41,15 @@ const getUserByIDController = async (req, res) => {
     }
 }
 
+/**
+ * Purpose: Creates a new user in the database.
+ * @param {object} req 
+ * @param {object} res 
+ * HTTP Method: POST
+ * 201 Created: On successful creation, returns the created author object.
+ * 400 Bad Request: If validation fails or required data is missing.
+ * 500 Internal Server Error: On failure, returns an error message.
+ */
 
 const createUserController = async (req, res) => {
     const errors = validationResult(req);
@@ -39,6 +69,16 @@ const createUserController = async (req, res) => {
 
 }
 
+/**
+ * Purpose: Updates an existing user's information.
+ * @param {object} req 
+ * @param {object} res 
+ * HTTP Method: PUT
+ * 201 Created: On successful update, returns the updated author object.
+ * 400 Bad Request: If the ID is missing, or validation fails.
+ * 500 Internal Server Error: On failure, returns an error message
+ */
+
 const updateUserController = async (req, res) => {
     const userID = req.params.id;
     const { userName, userEmail, userPassword, dob } = req.body;
@@ -57,6 +97,17 @@ const updateUserController = async (req, res) => {
         res.status(500).json({ error: error?.message });
     }
 }
+
+/**
+ * Purpose: Deletes a user from the database.
+ * @param {object} req 
+ * @param {object} res 
+ * HTTP Method: DELETE
+ * 200 OK: On successful deletion, returns a success message.
+ * 400 Bad Request: If the ID is missing.
+ * 500 Internal Server Error: On failure, returns an error message.
+ * 
+ */
 
 const deleteUserController = async (req, res) => {
     const  userID  = req.params.id;

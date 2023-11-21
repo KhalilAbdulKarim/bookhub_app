@@ -1,6 +1,16 @@
 const { getBooks, getBookByID, createBook, updateBook, deleteBook } = require("../services/booksService");
 const { validationResult } = require("express-validator");
 
+
+/**
+ * Purpose: Retrieves all books from the database
+ * @param {object} req 
+ * @param {object} res
+ * HTTP Method: GET
+ * 200 OK: On success, returns an array of books objects.
+ * 500 Internal Server Error: On failure, returns an error message.
+ */
+
 const getAllBooksController = async (req, res) => {
     try {
         const books = await getBooks();
@@ -9,6 +19,15 @@ const getAllBooksController = async (req, res) => {
         res.status(500).json({ message: error?.message });
     }
 }
+
+/**
+ * Purpose: Retrieves a book from the database based on URL param id 
+ * HTTP Method: GET
+ * @param {object} req 
+ * @param {object} res 
+ * 200 OK: On success, returns an book object.
+ * 500 Internal Server Error: On failure, returns an error message.
+ */
 
 const getBookByIDController = async (req, res) => {
     try {
@@ -20,6 +39,16 @@ const getBookByIDController = async (req, res) => {
         res.status(500).json({ message: error?.message });
     }
 }
+
+/**
+ * Purpose: Creates a new book in the database.
+ * @param {object} req 
+ * @param {object} res 
+ * HTTP Method: POST
+ * 201 Created: On successful creation, returns the created author object.
+ * 400 Bad Request: If validation fails or required data is missing.
+ * 500 Internal Server Error: On failure, returns an error message.
+ */
 
 const createBookController = async (req, res) => {
     const errors = validationResult(req);
@@ -39,18 +68,28 @@ const createBookController = async (req, res) => {
 
 }
 
-const updateBookController = async (req, res) => {
+/**
+ * Purpose: Updates an existing book information.
+ * @param {object} req 
+ * @param {object} res 
+ * HTTP Method: PUT
+ * 201 Created: On successful update, returns the updated author object.
+ * 400 Bad Request: If the ID is missing, or validation fails.
+ * 500 Internal Server Error: On failure, returns an error message
+ */
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+const updateBookController = async (req, res) => {
     //bookID comes from route parameter
     const bookID = req.params.id;
     const { title, publishedDate, genreID, authorID, synopsis } = req.body;
 
     if (!bookID) {
         return res.status(400).json({ message: "missing data" });
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
     }
 
     try {
@@ -60,6 +99,17 @@ const updateBookController = async (req, res) => {
         res.status(500).json({ error: error?.message });
     }
 }
+
+/**
+ * Purpose: Deletes a book from the database.
+ * @param {object} req 
+ * @param {object} res 
+ * HTTP Method: DELETE
+ * 200 OK: On successful deletion, returns a success message.
+ * 400 Bad Request: If the ID is missing.
+ * 500 Internal Server Error: On failure, returns an error message.
+ * 
+ */
 
 const deleteBookController = async (req, res) => {
     const bookID = req.params.id;

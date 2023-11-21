@@ -24,7 +24,7 @@ const getAllAuthorsController = async (req, res) => {
  * HTTP Method: GET
  * @param {object} req 
  * @param {object} res 
- * 200 OK: On success, returns an array of author objects.
+ * 200 OK: On success, returns an author object.
  * 500 Internal Server Error: On failure, returns an error message.
  */
 
@@ -67,12 +67,13 @@ const createAuthorController = async (req, res) => {
 }
 
 /**
- * Purpose: Creates a new author in the database.
+ * Purpose: Updates an existing author's information.
  * @param {object} req 
  * @param {object} res 
- * HTTP Method: POST
- * 200 OK: On success, returns an array of author objects.
- * 500 Internal Server Error: On failure, returns an error message.
+ * HTTP Method: PUT
+ * 201 Created: On successful update, returns the updated author object.
+ * 400 Bad Request: If the ID is missing, or validation fails.
+ * 500 Internal Server Error: On failure, returns an error message
  */
 
 const updateAuthorController = async (req, res) => {
@@ -93,6 +94,18 @@ const updateAuthorController = async (req, res) => {
         res.status(500).json({ error: error?.message });
     }
 }
+
+
+/**
+ * Purpose: Deletes an author from the database.
+ * @param {object} req 
+ * @param {object} res 
+ * HTTP Method: DELETE
+ * 200 OK: On successful deletion, returns a success message.
+ * 400 Bad Request: If the ID is missing.
+ * 500 Internal Server Error: On failure, returns an error message.
+ * 
+ */
 
 const deleteAuthorController = async (req, res) => {
     const authorID  = req.params.id;
