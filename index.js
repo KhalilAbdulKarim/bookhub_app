@@ -50,18 +50,23 @@ const recommendationRoute = require('./routes/recommendation.route');
 app.use('/api/recommendations', recommendationRoute);
 
 
-app.get("/",async(req,res)=>{
-    const users = await query("select * from USERS");
-    const data = {
-        user:"user001",
-        title: "Manager",
-        content: "user001 is an HR manager",
-        //users: users,
- }
- console.log(users);
-
- res.render("homePage",data);
+app.get("/", async (req, res) => {
+    try {
+        const users = await query("select * from USERS");
+        const data = {
+            user: "User001",
+            title: "Manager",
+            content: "User001 is an HR manager",
+            users: users,
+        }
+        
+        res.render("homePage", data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred");
+    }
 });
+
 
 
 const userRoute = require('./routes/user.route');
