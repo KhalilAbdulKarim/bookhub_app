@@ -51,13 +51,25 @@ app.use('/api/recommendations', recommendationRoute);
 
 
 app.get("/", async (req, res) => {
+    const limit = 5;
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const offset = (page - 1) * limit;
+
     try {
-        const users = await query("select * from USERS");
+        const users = await query(`SELECT * FROM USERS LIMIT ${limit} OFFSET ${offset}`);
+        const countResult = await query(`SELECT COUNT(*) AS count FROM USERS`);
+        const totalRows = countResult[0].count;
+        const totalPages = Math.ceil(totalRows / limit);
+
         const data = {
-            user: "User001",
+            user: "User",
             title: "Manager",
-            content: "User001 is an HR manager",
+            content: "User is an HR manager",
             users: users,
+            currentPage: page,
+            totalPages: totalPages,
+            hasNextPage: page < totalPages,
+            hasPrevPage: page > 1
         }
         
         res.render("homePage", data);
