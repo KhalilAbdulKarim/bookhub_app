@@ -52,6 +52,7 @@ const getUserByIDController = async (req, res) => {
  */
 
 const createUserController = async (req, res) => {
+    console.log(req.body);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -62,7 +63,8 @@ const createUserController = async (req, res) => {
 
     try {
         const response = await createUser(userName, userPassword, userEmail, dob)
-        res.status(201).json({ response });
+        // res.status(201).json({ response });
+        res.render("homePage",response);
     } catch (error) {
         res.status(500).json({ error: error?.message });
     }
@@ -92,7 +94,8 @@ const updateUserController = async (req, res) => {
 
     try {
         const response = await updateUser(userID, userName, userPassword, userEmail, dob);
-        res.status(201).json({ response });
+        // res.status(201).json({ response });
+        res.render("homePage",response);
     } catch (error) {
         res.status(500).json({ error: error?.message });
     }
@@ -111,18 +114,30 @@ const updateUserController = async (req, res) => {
 
 const deleteUserController = async (req, res) => {
     const  userID  = req.params.id;
+    console.log(userID);
 
     if (!userID) {
         return res.status(400).json({ message: "missing user id" });
     }
     try {
         const result = await deleteUser(userID);
-        res.status(200).json({ result });
+        //res.status(200).json({ result });
+        res.redirect("/");
     } catch (error) {
         res.status(500).json({ message: error?.message });
     }
 }
 
+const addUserForm = (req,res)=>{
+    res.render("addUser");
+}
+
+const editUserForm= async(req,res)=>{
+    let userId = req.params.id;
+    const sql = 'select * from users where userID = ?';
+    const user = await query(sql,userId);
+    res.render("editUser",user[0]);
+}
 
 
 module.exports = {
@@ -131,4 +146,5 @@ module.exports = {
     createUserController,
     updateUserController,
     deleteUserController,
+
 }

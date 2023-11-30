@@ -49,6 +49,9 @@ app.use('/api/reviews', reviewRoute);
 const recommendationRoute = require('./routes/recommendation.route');
 app.use('/api/recommendations', recommendationRoute);
 
+const userRoute = require('./routes/user.route');
+app.use('/api/users', userRoute);
+
 
 app.get("/", async (req, res) => {
     const limit = 5;
@@ -56,7 +59,7 @@ app.get("/", async (req, res) => {
     const offset = (page - 1) * limit;
 
     try {
-        const users = await query(`SELECT * FROM USERS LIMIT ${limit} OFFSET ${offset}`);
+        const getUsers = await query(`SELECT * FROM USERS LIMIT ${limit} OFFSET ${offset}`);
         const countResult = await query(`SELECT COUNT(*) AS count FROM USERS`);
         const totalRows = countResult[0].count;
         const totalPages = Math.ceil(totalRows / limit);
@@ -65,7 +68,7 @@ app.get("/", async (req, res) => {
             user: "User",
             title: "Manager",
             content: "User is an HR manager",
-            users: users,
+            users: getUsers,
             currentPage: page,
             totalPages: totalPages,
             hasNextPage: page < totalPages,
@@ -81,8 +84,6 @@ app.get("/", async (req, res) => {
 
 
 
-const userRoute = require('./routes/user.route');
-app.use('/api/users', userRoute);
 
 /**
  * Server Initialization

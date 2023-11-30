@@ -10,4 +10,5 @@ router.post('/author', createAuthorValidation, createAuthorController); // creat
 router.put('/author/:id', updateAuthorValidation,updateAuthorController); // update
 router.delete('/author/:id',deleteAuthorController,deleteAuthor);// delete
 
+
 module.exports = router;
