@@ -110,10 +110,14 @@ const deleteUser = async (id) => {
 
 }
 
+
+
+
 module.exports = {
     getUsers,
     getUserByID,
     createUser,
     updateUser,
     deleteUser,
+    
 }

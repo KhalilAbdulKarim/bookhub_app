@@ -1,4 +1,4 @@
-const { getUsers, getUserByID, createUser, updateUser, deleteUser } = require("../services/usersService");
+const { getUsers, getUserByID, createUser, updateUser, deleteUser,authenticateUser} = require("../services/usersService");
 const { validationResult } = require("express-validator");
 
 
@@ -127,6 +127,8 @@ const deleteUserController = async (req, res) => {
         res.status(500).json({ message: error?.message });
     }
 }
+
+
 
 const addUserForm = (req,res)=>{
     res.render("addUser");

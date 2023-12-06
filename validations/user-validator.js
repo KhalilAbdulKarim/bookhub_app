@@ -34,6 +34,11 @@ const updateUserValidation = [
     }),
 ];
 
+const authenticateUserValidation = [
+    check('userEmail').isEmail().withMessage('Invalid Email Format')
+    
+]
+
 module.exports = {
     createUserValidation,
     updateUserValidation,

@@ -11,23 +11,23 @@ body {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
-    width: 300px;
+    width: 350px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     color: #ffba00;
 }
 
 .input-container {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 input {
@@ -48,7 +48,7 @@ button {
 
 button[type="submit"] {
     background-color: #ffba00;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 button[type="button"] {
