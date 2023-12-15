@@ -17,8 +17,6 @@ const authenticateUser = async (userEmail, userPassword) => {
             // No user found with the provided credentials
             return null;
         }
-
-        // Assuming the user is found
         return users[0];
     } catch (error) {
         throw new Error(error);

@@ -53,8 +53,11 @@ app.use('/api/recommendations', recommendationRoute);
 const userRoute = require('./routes/user.route');
 app.use('/api/users', userRoute);
 
+const loginRoute = require('./routes/loginAuthRoute'); 
+app.use(loginRoute);
 
-app.get("/", async (req, res) => {
+
+app.get('/dashboard', async (req, res) => {
     const limit = 5;
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const offset = (page - 1) * limit;
@@ -74,8 +77,8 @@ app.get("/", async (req, res) => {
             totalPages: totalPages,
             hasNextPage: page < totalPages,
             hasPrevPage: page > 1
-        }
-        
+        };
+
         res.render("dashboard", data);
     } catch (error) {
         console.error(error);
@@ -84,11 +87,10 @@ app.get("/", async (req, res) => {
 });
 
 
-
-
-app.get('/login',(req,res)=>{
-    res.render('loginPage');
+app.get('/login', (req, res) => {
+    res.render('loginPage', { errorMessage: '' });
 });
+
 
 app.get('/register',(req,res)=>{
     res.render('registerPage');
