@@ -32,9 +32,6 @@ app.set('view engine','ejs');
  */
 
 
-// const userRoute = require('./routes/user.route');
-// app.use('/api/users', userRoute);
-
 const authorRoute = require('./routes/author.route');
 app.use('/api/authors', authorRoute);
 
@@ -51,7 +48,8 @@ const recommendationRoute = require('./routes/recommendation.route');
 app.use('/api/recommendations', recommendationRoute);
 
 const userRoute = require('./routes/user.route');
-app.use('/api/users', userRoute);
+// app.use('/api/users', userRoute);
+app.use(userRoute);
 
 const loginRoute = require('./routes/loginAuthRoute'); 
 app.use(loginRoute);
@@ -93,7 +91,7 @@ app.get('/login', (req, res) => {
 
 
 app.get('/register',(req,res)=>{
-    res.render('registerPage');
+    res.render('registerPage',{errors : ''});
 });
 
 

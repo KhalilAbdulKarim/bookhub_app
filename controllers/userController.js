@@ -56,17 +56,23 @@ const createUserController = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).render('registerPage', { errors: errors.array() });
     }
+    
 
     const { userName, userPassword, userEmail, dob } = req.body;
 
     try {
         const response = await createUser(userName, userPassword, userEmail, dob)
-        // res.status(201).json({ response });
-        res.render("homePage",response);
-    } catch (error) {
-        res.status(500).json({ error: error?.message });
+        if(response){
+            res.redirect('/login');
+        } else {
+            res.render('registerPage',{errors: errors?.message});
+        }
+        
+    } catch (errors) {
+        res.render('registerPage',{errors: errors?.message });
+
     }
 
 }
