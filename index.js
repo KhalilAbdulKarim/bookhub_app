@@ -22,6 +22,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static('public'));
 app.set('view engine','ejs');
 
 
@@ -75,7 +76,7 @@ app.get("/", async (req, res) => {
             hasPrevPage: page > 1
         }
         
-        res.render("homePage", data);
+        res.render("dashboard", data);
     } catch (error) {
         console.error(error);
         res.status(500).send("An error occurred");
@@ -83,6 +84,15 @@ app.get("/", async (req, res) => {
 });
 
 
+
+
+app.get('/login',(req,res)=>{
+    res.render('loginPage');
+});
+
+app.get('/register',(req,res)=>{
+    res.render('registerPage');
+});
 
 
 /**
