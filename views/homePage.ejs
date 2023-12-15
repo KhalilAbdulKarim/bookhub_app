@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookHub Home</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -25,13 +23,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Categories</a>
+                        <a class="nav-link" href="#">Recommendations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#">Reviews</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Login/Register</a>
+                        <a class="nav-link" href="#">Account</a>
                     </li>
                 </ul>
             </div>
@@ -39,33 +37,11 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="jumbotron bg-primary text-white text-center py-5 mb-4">
+    <div class="jumbotron text-dark text-center py-5 mb-4" style="background-color:  #ffba00;">
         <div class="container">
             <h1>Welcome to BookHub!</h1>
             <p>Your one-stop destination for all your reading needs.</p>
         </div>
     </div>
-
-    <!-- Featured Books Section -->
-    <div class="container">
-        <h2 class="mb-4">Featured Books</h2>
-        <div class="row">
-            <% for(let i = 0; i < 3; i++) { %> <!-- Example loop, replace with dynamic data -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <img src="book_cover.jpg" class="card-img-top" alt="Book Cover">
-                        <div class="card-body">
-                            <h5 class="card-title">Book Title <%= i + 1 %></h5>
-                            <p class="card-text">Some quick example text to build on the book title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            <% } %>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

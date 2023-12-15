@@ -94,6 +94,10 @@ app.get('/register',(req,res)=>{
     res.render('registerPage',{errors : ''});
 });
 
+app.get('/home',(req,res)=>{
+    res.render('homePage');
+})
+
 
 /**
  * Server Initialization

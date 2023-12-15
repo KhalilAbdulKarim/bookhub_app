@@ -13,7 +13,7 @@ const authenticateUserController = async (req, res) => {
     try {
         const authUser = await authenticateUser(userEmail, userPassword);
         if (authUser) {
-            res.redirect('/dashboard');
+            res.render('homepage');
         }
          else {
             res.render('loginPage', { errorMessage: 'Invalid email or password' });
