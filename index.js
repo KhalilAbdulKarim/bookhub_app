@@ -91,7 +91,7 @@ app.get('/login', (req, res) => {
 
 
 app.get('/register',(req,res)=>{
-    res.render('registerPage',{errors : ''});
+    res.render('registerPage',{errors: []});
 });
 
 app.get('/home',(req,res)=>{

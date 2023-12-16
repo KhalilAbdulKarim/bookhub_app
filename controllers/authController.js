@@ -12,8 +12,13 @@ const authenticateUserController = async (req, res) => {
 
     try {
         const authUser = await authenticateUser(userEmail, userPassword);
+        
         if (authUser) {
+            if(userEmail === 'admin@administrator.com'){
+                res.redirect('/dashboard');
+            } else {
             res.render('homepage');
+            }
         }
          else {
             res.render('loginPage', { errorMessage: 'Invalid email or password' });
@@ -38,7 +43,7 @@ const authenticateAuthorController = async (req, res) => {
 
     try {
         const authAuthor = await authenticateAuthor(authorEmail, authorPassword);
-        res.redirect('/authorDashboard');
+        // res.redirect('/authorDashboard');
     } catch (error) {
         res.status(500).render('loginPage', { errorMessage: error?.message });
     }

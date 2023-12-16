@@ -1,0 +1,54 @@
+.full-screen-image {
+    height: 75vh; 
+    object-fit: cover; 
+    width: 100%;   
+  }
+
+.jumbotron {
+    margin-bottom: 0 !important;
+}
+
+.container-fluid {
+    position: relative;
+    overflow: hidden;
+}
+
+.blur-image {
+    width: 100%;
+    height: auto;
+    transition: filter 0.3s;
+}
+
+.blur-image:hover {
+    filter: blur(4px);
+}
+
+.text-over-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffba00;
+    text-align: center;
+    max-width: 80%;
+}
+
+.text-over-image h3 {
+    background-color: rgba(36, 32, 32, 0.7);
+    padding: 0.5rem;
+    border-radius: 9px;
+    display: inline-block;
+    margin: 0.5rem auto;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 200;
+}
+
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+

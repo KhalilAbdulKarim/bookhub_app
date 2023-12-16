@@ -26,8 +26,18 @@
             <div class="input-container">
                 <label for="userPassword">Password</label>
                 <input type="password" id="password" name="userPassword" placeholder="Enter password">
-                
+                <button type="button" onclick="togglePasswordVisibility()" class="btn btn-outline-secondary btn-sm mt-2">Show</button>
             </div>
+            <script>
+                function togglePasswordVisibility() {
+                     var passwordField = document.getElementById("password");
+                        if (passwordField.type === "password") {
+                             passwordField.type = "text";
+                        } else {
+                            passwordField.type = "password";
+                        }
+                 }
+            </script>
             <button type="submit">Login</button>
 
             <p style="font-family: 'Times New Roman', serif; text-align: center;">

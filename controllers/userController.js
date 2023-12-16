@@ -71,7 +71,12 @@ const createUserController = async (req, res) => {
         }
         
     } catch (errors) {
-        res.render('registerPage',{errors: errors?.message });
+        const errorMessages = [];
+        errorMessages.push({ msg: 'The email address is already in use.' });
+        
+        // res.render('registerPage',{errors: errors?.message });
+        res.render('registerPage', { errors: errorMessages });
+
 
     }
 
