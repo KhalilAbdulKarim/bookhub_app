@@ -34,9 +34,9 @@
 }
 
 .text-over-image h3 {
-    background-color: rgba(36, 32, 32, 0.7);
+    background-color: rgba(39, 38, 38, 0.7);
     padding: 0.5rem;
-    border-radius: 9px;
+    border-radius: 5px;
     display: inline-block;
     margin: 0.5rem auto;
     font-family: 'Helvetica Neue', sans-serif;

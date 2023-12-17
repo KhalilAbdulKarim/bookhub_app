@@ -96,6 +96,22 @@ app.get('/register',(req,res)=>{
 
 app.get('/home',(req,res)=>{
     res.render('homePage');
+});
+
+app.get('/books',(req,res)=>{
+    res.render('booksPage');
+});
+
+app.get('/about',(req,res)=>{
+    res.render('aboutPage');
+});
+
+app.get('/recommendations',(req,res)=>{
+    res.render('recommendationsPage');
+});
+
+app.get('/reviews',(req,res)=>{
+    res.render('reviewsPage');
 })
 
 
