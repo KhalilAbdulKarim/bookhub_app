@@ -1,5 +1,6 @@
 const{authenticateUser,authenticateAuthor} = require("../services/authService");
 const { validationResult } = require("express-validator");
+const session = require ("express-session");
 
 const authenticateUserController = async (req, res) => {
     // const errors = validationResult(req);
@@ -12,8 +13,10 @@ const authenticateUserController = async (req, res) => {
 
     try {
         const authUser = await authenticateUser(userEmail, userPassword);
-        
+
         if (authUser) {
+            req.session.userID = authUser.userID;
+            
             if(userEmail === 'admin@administrator.com'){
                 res.redirect('/dashboard');
             } else {
@@ -23,8 +26,8 @@ const authenticateUserController = async (req, res) => {
          else {
             res.render('loginPage', { errorMessage: 'Invalid email or password' });
         }
-
-    } catch (errorMessage) {
+    } 
+    catch (errorMessage) {
         res.render('loginPage', { errorMessage: 'Invalid email or password' });
 
     }

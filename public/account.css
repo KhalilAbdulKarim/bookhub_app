@@ -1,0 +1,95 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ffba00,#343a40);
+}
+
+
+h1 {
+    text-align: center;
+    padding-bottom: 10%;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 6em auto;
+    background: #ffffff;
+    padding: 4em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.profile-info {
+    margin-bottom: 2em;
+}
+
+.profile-info strong {
+    color: #333;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button.delete {
+    background-color: #d9534f;
+}
+
+@keyframes fadeInUp {
+    from {
+      transform: translate3d(0, 40px, 0);
+      opacity: 0;
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  
+  .profile-container {
+      /* ... other styles ... */
+      animation: fadeInUp 0.8s ease both;
+  }
+  
+  .profile-info {
+      margin-bottom: 3em; /* Increased spacing */
+      font-size: 1.1rem; /* Larger font size */
+      display: flex;
+      align-items: center;
+  }
+  
+  .profile-info strong {
+      margin-right: 0.5em; /* Space between label and value */
+  }
+  
+  .profile-info i {
+      color: #ffba00; /* Icon color */
+      margin-right: 1.5em; /* Space between icon and label */
+  }
+  
+  button.edit, button.delete {
+      transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+
+

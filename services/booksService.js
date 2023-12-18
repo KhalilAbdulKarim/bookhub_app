@@ -8,7 +8,10 @@ const moment = require("moment");
 
 const getBooks = async () => {
     try {
-        let sql = `SELECT * FROM BOOKS`;
+        let sql = `SELECT B.title, B.publishedDate, B.ISBN, B.authorID, G.genreName,A.authorName,B.synopsis
+                    FROM BOOKS B
+                    INNER JOIN GENRE G ON B.genreID = G.genreID
+                    INNER JOIN AUTHORS A ON B.authorID = A.authorID;`;
         const books = await query(sql);
         return books;
     } catch (error) {
@@ -140,10 +143,19 @@ const deleteBook = async (id) => {
 }
 
 
+const searchBooksByTitle = async (title) => {
+    const likeTitle = `%${title}%`;
+    const sql = "SELECT * FROM BOOKS WHERE title LIKE ?";
+    const results = await query(sql, [likeTitle]);
+    return results;
+};
+
+
 module.exports = {
     getBooks,
     getBookByID,
     createBook,
     updateBook,
-    deleteBook
+    deleteBook,
+    searchBooksByTitle,
 }

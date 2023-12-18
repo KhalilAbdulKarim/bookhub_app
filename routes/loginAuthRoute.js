@@ -4,6 +4,7 @@ const {authenticateUserController,authenticateAuthorController} = require("../co
 const router = express.Router();
 
 router.post('/login',authenticateUserController);
+// router.post('/account',authenticateUserController);
 
 
 

@@ -2,6 +2,7 @@ const { query } = require("../db/database");
 
 
 
+
 /**
  * Authenticate a user.
  * @param {String} userEmail - The Email of the user.
@@ -14,14 +15,23 @@ const authenticateUser = async (userEmail, userPassword) => {
         const users = await query(sql, [userEmail, userPassword]);
 
         if (users.length === 0) {
-            // No user found with the provided credentials
             return null;
         }
         return users[0];
     } catch (error) {
         throw new Error(error);
     }
-}
+};
+
+const getUserDetails = async (userID) => {
+    try {
+        const result = await query('SELECT userName, userEmail, dob FROM USERS WHERE userID = ? ;', [userID]);
+        return result[0];
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
 
 
 
@@ -41,7 +51,6 @@ const authenticateAuthor = async (authorEmail, authorPassword) => {
             return null;
         }
 
-        // Assuming the user is found
         return authors[0];
     } catch (error) {
         throw new Error(error);
@@ -51,5 +60,6 @@ const authenticateAuthor = async (authorEmail, authorPassword) => {
 module.exports= {
     authenticateUser,
     authenticateAuthor,
+    getUserDetails,
 }
 
