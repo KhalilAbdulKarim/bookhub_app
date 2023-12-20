@@ -43,32 +43,62 @@
     </nav>
     <div class="profile-container">
         <h1>Profile</h1>
-        
+
         <div class="profile-info">
-            <i class="fas fa-user"></i> 
+            <i class="fas fa-user"></i>
             <strong>Username:</strong>
             <%= userName %>
         </div>
         <div class="profile-info">
-            <i class="fas fa-user"></i> 
+            <i class="fas fa-user"></i>
             <strong>Email:</strong>
             <%= userEmail %>
         </div>
         <div class="profile-info">
-            <i class="fas fa-user"></i> 
+            <i class="fas fa-user"></i>
             <strong>Date of Birth:</strong>
             <%= dob %>
         </div>
-        <button type = "submit" class= "btn btn-secondary" >Edit</button>
-        <button type = "submit" class= "btn btn-warning" >Delete Account </button>
-        <form action = "/logout" method ="POST">
-            <button type = "submit" class= "btn btn-danger" >Sign Out</button>
+        <button type="submit" class="btn btn-secondary" onclick="window.location.href='/updateAccount';">Edit</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+            Delete Account
+        </button>
+        <form action="/logout" method="POST">
+            <button type="submit" class="btn btn-warning">Sign Out</button>
         </form>
-        
+    </div>
+    <!-- Delete Account Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">Confirm Account Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please enter your password to confirm account deletion.</p>
+                    <form id="deleteAccountForm" action="/deleteAccount" method="POST">
+                        <div class="mb-3">
+                            <label for="passwordConfirmation" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="passwordConfirmation" name="password"
+                                required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="deleteAccountForm" class="btn btn-danger">Delete Account</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-   
-  
+
+
+
+
+
 </body>
 
 </html>

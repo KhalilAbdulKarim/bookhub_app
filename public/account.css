@@ -1,9 +1,8 @@
-
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #ffba00,#343a40);
+    background: linear-gradient(to right, #ffba00, #343a40);
 }
 
 
@@ -36,8 +35,8 @@ button {
     padding: 10px;
     margin-top: 10px;
     border: none;
-    background-color: #5cb85c;
-    color: white;
+    background-color: rgb(4, 0, 255);
+    color: whitesmoke;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -52,44 +51,99 @@ button.delete {
 
 @keyframes fadeInUp {
     from {
-      transform: translate3d(0, 40px, 0);
-      opacity: 0;
+        transform: translate3d(0, 40px, 0);
+        opacity: 0;
     }
+
     to {
-      transform: translate3d(0, 0, 0);
-      opacity: 1;
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
     }
-  }
-  
-  .profile-container {
-      /* ... other styles ... */
-      animation: fadeInUp 0.8s ease both;
-  }
-  
-  .profile-info {
-      margin-bottom: 3em; /* Increased spacing */
-      font-size: 1.1rem; /* Larger font size */
-      display: flex;
-      align-items: center;
-  }
-  
-  .profile-info strong {
-      margin-right: 0.5em; /* Space between label and value */
-  }
-  
-  .profile-info i {
-      color: #ffba00; /* Icon color */
-      margin-right: 1.5em; /* Space between icon and label */
-  }
-  
-  button.edit, button.delete {
-      transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
+}
 
+.profile-container {
+    /* ... other styles ... */
+    animation: fadeInUp 0.8s ease both;
+}
 
+.profile-info {
+    margin-bottom: 3em;
+    /* Increased spacing */
+    font-size: 1.1rem;
+    /* Larger font size */
+    display: flex;
+    align-items: center;
+}
+
+.profile-info strong {
+    margin-right: 0.5em;
+    /* Space between label and value */
+}
+
+.profile-info i {
+    color: #ffba00;
+    /* Icon color */
+    margin-right: 1.5em;
+    /* Space between icon and label */
+}
+
+button.edit,
+button.delete {
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+html {
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 4rem auto;
+    padding: 3rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-field {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 1rem;
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.back-btn {
+    color: rgb(0, 0, 0);
+    margin-bottom: 2rem; 
+    display: block; 
+}

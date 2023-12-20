@@ -62,8 +62,9 @@ const userRoute = require('./routes/user.route');
 app.use(userRoute);
 
 const loginRoute = require('./routes/loginAuthRoute');
-const { getUserDetails } = require("./services/authService");
+const { getUserDetails} = require("./services/authService");
 const { getBooks,searchBooksByTitle} = require("./services/booksService");
+const {getUserByID,updateUser,deleteUser} = require ("./services/usersService");
 app.use(loginRoute);
 
 
@@ -109,6 +110,7 @@ app.get('/register', (req, res) => {
 app.get('/home', (req, res) => {
     res.render('homePage');
 });
+
 
 app.get('/books', async (req, res) => {
     try {
@@ -176,6 +178,66 @@ app.post('/logout', (req, res) => {
         res.redirect('/login');
     });
 });
+
+
+app.post('/updateAccount', async (req, res) => {
+    if (!req.session.userID) {
+        return res.redirect('/login');
+    }
+
+    const userID = req.session.userID;
+    const { userName, userEmail, userPassword, dob } = req.body;
+
+    try {
+        await updateUser(userID, userName, userPassword, userEmail, dob);
+        res.redirect('/account');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server error occurred.');
+    }
+});
+
+app.get('/updateAccount', async (req, res) => {
+    if (!req.session.userID) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const userDetails = await getUserDetails(req.session.userID);
+        res.render('updateAccountPage', {
+            userName: userDetails.userName,
+            userEmail: userDetails.userEmail,
+            dob: userDetails.dob,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Server error occurred.');
+    }
+});
+
+app.post('/deleteAccount', async (req, res) => {
+    const { passwordToDelete } = req.body; 
+
+    if (!req.session.userID) {
+        return res.status(401).send('User not logged in');
+    }
+
+    try {
+        const userDetails = await getUserByID(req.session.userID);
+
+        if (userDetails && userDetails.userPassword === passwordToDelete) {
+            await deleteUser(req.session.userID);
+            req.session.destroy();
+            res.redirect('/login');
+        } else {
+            res.status(401).send('Incorrect password');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred');
+    }
+});
+
 
 
 /**
