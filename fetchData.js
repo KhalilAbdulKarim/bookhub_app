@@ -5,7 +5,7 @@ const mysql = require('mysql2/promise');
 const app = express();
 const { v4: uuidv4 } = require('uuid');
 const crypto = require('crypto');
-const port = 3003;
+const port = 3004;
 
 
 
@@ -42,10 +42,10 @@ const processBookData = (apiResponse) => {
 
     if (publishedDate) {
         if (publishedDate.match(/^\d{4}$/)) {
-            // Only year is provided, set to January 1st of that year
+            // if only year is provided, set to January 1st of that year
             publishedDate = `${publishedDate}-01-01`;
         } else if (publishedDate.match(/^\d{4}-\d{2}$/)) {
-            // Year and month are provided, set to the first of that month
+            // if year and month are provided, set to the first of that month
             publishedDate = `${publishedDate}-01`;
         }
     }
@@ -107,22 +107,6 @@ const getGenreId = async (genreName) => {
     }
     return genreId;
 };
-
-
-
-// const insertBookIntoDatabase = async (processedBook) => {
-//     const authorIds = await Promise.all(processedBook.authors.map(author => getAuthorId(author)));
-//     const genreIds = await Promise.all(processedBook.genres.map(genre => getGenreId(genre)));
-
-//     // Simplification for single author and genre
-//     const authorID = authorIds[0] || null;
-//     const genreID = genreIds[0] || null;
-
-//     await pool.query(
-//         'INSERT INTO BOOKS (title, publishedDate, ISBN, authorID, genreID, synopsis) VALUES (?, ?, ?, ?, ?, ?)',
-//         [processedBook.title, processedBook.publishedDate, processedBook.ISBN, authorID, genreID, processedBook.synopsis]
-//     );
-// };
 
 const insertBookIntoDatabase = async (processedBook) => {
     // If there are no authors, use the default 'Unknown' author

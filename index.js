@@ -209,6 +209,8 @@ app.get('/updateAccount', async (req, res) => {
             userEmail: userDetails.userEmail,
             dob: userDetails.dob,
         });
+        //
+        req.session.destroy();
     } catch (error) {
         console.log(error);
         res.status(500).send('Server error occurred.');
