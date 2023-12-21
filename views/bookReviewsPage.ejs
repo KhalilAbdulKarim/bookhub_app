@@ -51,22 +51,26 @@
 
 <body class="container">
   <a href="/books" class="back-btn">&larr; Back to books</a>
-  <% reviews.forEach(function(review) { %>
-    <div class="review-card">
-      <div class="review-card-header">
-        <h5 class="mb-0">
-          <%= review.userName %>
-        </h5>
-      </div>
-      <div class="review-card-body">
-        <span class="review-rating">Rating: <%= review.rating %></span>
-        <p class="review-text">Review: <%= review.reviewText %>
-        </p>
-        <p class="review-date">Posted on: <%= new Date(review.datePosted).toISOString().split('T')[0]%>
-        </p>
-      </div>
-    </div>
-    <% }) %>
+  <%if(reviews.length===0){ %>
+    <p class="text-center">This book have no reviews.</p>
+    <%}else{ %>
+      <% reviews.forEach(function(review) { %>
+        <div class="review-card">
+          <div class="review-card-header">
+            <h5 class="mb-0">
+              <%= review.userName %>
+            </h5>
+          </div>
+          <div class="review-card-body">
+            <span class="review-rating">Rating: <%= review.rating %></span>
+            <p class="review-text">Review: <%= review.reviewText %>
+            </p>
+            <p class="review-date">Posted on: <%= new Date(review.datePosted).toISOString().split('T')[0]%>
+            </p>
+          </div>
+        </div>
+        <% }) %>
+          <% } %>
 </body>
 
 </html>
