@@ -63,9 +63,9 @@ app.use(userRoute);
 
 const loginRoute = require('./routes/loginAuthRoute');
 const { getUserDetails } = require("./services/authService");
-const { getBooks, searchBooksByTitle } = require("./services/booksService");
+const { getBooks, searchBooksByTitle ,getBooksWithReviewsCount,getReviewsForBook} = require("./services/booksService");
 const { getUserByID, updateUser, deleteUser } = require("./services/usersService");
-const { createReview,getUserReviewsWithBookDetails } = require("./services/reviewService");
+const { createReview,getUserReviewsWithBookDetails} = require("./services/reviewService");
 app.use(loginRoute);
 
 
@@ -118,7 +118,7 @@ app.get('/books', async (req, res) => {
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
     try {
-        const allBooks = await getBooks();
+        const allBooks = await getBooksWithReviewsCount();
         const totalRows = allBooks.length;
         const totalPages = Math.ceil(totalRows / limit);
         const startIndex = (page - 1) * limit;
@@ -185,6 +185,19 @@ app.get('/reviews', async (req, res) => {
         res.status(500).send('Error retrieving reviews');
     }
 });
+
+
+app.get('/bookReviews/:bookID', async (req, res) => {
+    const bookID = req.params.bookID;
+    try {
+        const reviews = await getReviewsForBook(bookID);
+        res.render('bookReviewsPage', { reviews: reviews });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error retrieving reviews');
+    }
+});
+
 
 
 

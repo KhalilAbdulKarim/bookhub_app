@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reviews</title>
+</head>
+<body>
+    <% reviews.forEach(function(review) { %>
+        <div class="review">
+          <h5><%= review.reviewerName %></h5>
+          <p>Rating: <%= review.rating %></p>
+          <p><%= review.reviewText %></p>
+          <p>Posted on: <%= review.datePosted.toISOString().split('T')[0] %></p>
+        </div>
+      <% }) %>
+      
+</body>
+</html>

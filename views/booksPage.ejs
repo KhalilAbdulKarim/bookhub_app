@@ -68,6 +68,8 @@
                         </p>
                         <p class="card-text">Synopsis: <%= book.synopsis %>
                         </p>
+                        <p2>Number of Reviews: <%= book.reviewCount %></p2>
+                        <a href="/bookReviews/<%= book.bookID %>" class="btn btn-link">Read Reviews</a>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="location.href='/addReview?bookID=<%= book.bookID %>'">Add Review</button>
                 </div>

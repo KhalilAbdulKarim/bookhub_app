@@ -133,10 +133,10 @@ const updateReview = async (reviewID, userID, bookID, rating, datePosted, review
 
 
 
-
 const getUserReviewsWithBookDetails = async (userID) => {
     try {
-        let sql = `
+        let sql = 
+        `
             SELECT 
                 R.*, 
                 B.title, 
@@ -161,7 +161,6 @@ const getUserReviewsWithBookDetails = async (userID) => {
         throw new Error(error);
     }
 }
-
 
 /**
  * 

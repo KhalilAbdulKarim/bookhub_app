@@ -8,10 +8,30 @@ const moment = require("moment");
 
 const getBooks = async () => {
     try {
-        let sql = `SELECT B.bookID, B.title, B.publishedDate, B.ISBN, B.authorID, G.genreName, A.authorName, B.synopsis
-        FROM BOOKS B
-        INNER JOIN GENRE G ON B.genreID = G.genreID
-        INNER JOIN AUTHORS A ON B.authorID = A.authorID;
+        // let sql = `SELECT B.bookID, B.title, B.publishedDate, B.ISBN, B.authorID, G.genreName, A.authorName, B.synopsis
+        // FROM BOOKS B
+        // INNER JOIN GENRE G ON B.genreID = G.genreID
+        // INNER JOIN AUTHORS A ON B.authorID = A.authorID;
+        // `;
+        let sql = `SELECT 
+        B.bookID,
+        B.title, 
+        B.publishedDate, 
+        B.ISBN, 
+        A.authorName, 
+        G.genreName,
+        B.synopsis,
+        COUNT(R.reviewID) AS reviewCount
+      FROM 
+        BOOKS B
+      JOIN 
+        AUTHORS A ON B.authorID = A.authorID
+      JOIN 
+        GENRE G ON B.genreID = G.genreID
+      LEFT JOIN 
+        REVIEWS R ON B.bookID = R.bookID
+      GROUP BY 
+        B.bookID;      
         `;
         const books = await query(sql);
         return books;
@@ -143,6 +163,55 @@ const deleteBook = async (id) => {
 
 }
 
+const getBooksWithReviewsCount = async () =>{
+    try{
+    let sql = `SELECT 
+        B.bookID,
+        B.title, 
+        B.publishedDate, 
+        B.ISBN, 
+        A.authorName, 
+        G.genreName,
+        B.synopsis,
+        COUNT(R.reviewID) AS reviewCount
+    FROM 
+        BOOKS B
+    JOIN 
+        AUTHORS A ON B.authorID = A.authorID
+    JOIN 
+        GENRE G ON B.genreID = G.genreID
+    LEFT JOIN 
+        REVIEWS R ON B.bookID = R.bookID
+     GROUP BY 
+         B.bookID;
+     `;
+
+    const bookWithCount = await query(sql);
+    return bookWithCount;
+    }catch(error){
+        throw new Error(error);
+    }
+}
+
+const getReviewsForBook = async (bookID) => {
+    try {
+        let sql = `
+            SELECT R.*, U.userName, B.title, A.authorName
+            FROM REVIEWS R
+            INNER JOIN USERS U ON R.userID = U.userID
+            INNER JOIN BOOKS B ON R.bookID = B.bookID
+            INNER JOIN AUTHORS A ON B.authorID = A.authorID
+            WHERE R.bookID = ?
+            ORDER BY R.datePosted DESC; 
+        `;
+        const reviews = await query(sql, [bookID]);
+        return reviews;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+
 
 const searchBooksByTitle = async (title) => {
     const likeTitle = `%${title}%`;
@@ -159,4 +228,7 @@ module.exports = {
     updateBook,
     deleteBook,
     searchBooksByTitle,
+    getBooksWithReviewsCount,
+    getReviewsForBook,
+    
 }
