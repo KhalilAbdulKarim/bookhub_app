@@ -110,13 +110,13 @@ const getGenreId = async (genreName) => {
 
 const insertBookIntoDatabase = async (processedBook) => {
     // If there are no authors, use the default 'Unknown' author
-    const authorID = processedBook.authors.length > 0 
-        ? await getAuthorId(processedBook.authors[0]) 
+    const authorID = processedBook.authors.length > 0
+        ? await getAuthorId(processedBook.authors[0])
         : await getAuthorId('Unknown');
 
     // If there are no genres, use the default 'Unknown' genre
-    const genreID = processedBook.genres.length > 0 
-        ? await getGenreId(processedBook.genres[0]) 
+    const genreID = processedBook.genres.length > 0
+        ? await getGenreId(processedBook.genres[0])
         : await getGenreId('Unknown');
 
     await pool.query(

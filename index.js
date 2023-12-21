@@ -41,7 +41,6 @@ app.use(session({
  * Server and Routes Setup
  */
 
-
 const authorRoute = require('./routes/author.route');
 app.use('/api/authors', authorRoute);
 
@@ -58,60 +57,25 @@ const recommendationRoute = require('./routes/recommendation.route');
 app.use('/api/recommendations', recommendationRoute);
 
 const userRoute = require('./routes/user.route');
-// app.use('/api/users', userRoute);
 app.use(userRoute);
 
 const loginRoute = require('./routes/loginAuthRoute');
-const { getUserDetails } = require("./services/authService");
-const { getBooks, searchBooksByTitle ,getBooksWithReviewsCount,getReviewsForBook} = require("./services/booksService");
-const { getUserByID, updateUser, deleteUser } = require("./services/usersService");
-const { createReview,getUserReviewsWithBookDetails} = require("./services/reviewService");
 app.use(loginRoute);
 
-
-app.get('/dashboard', async (req, res) => {
-    const limit = 9;
-    const page = req.query.page ? parseInt(req.query.page) : 1;
-    const offset = (page - 1) * limit;
-
-    try {
-        const getUsers = await query(`SELECT * FROM USERS LIMIT ${limit} OFFSET ${offset}`);
-        const countResult = await query(`SELECT COUNT(*) AS count FROM USERS`);
-        const totalRows = countResult[0].count;
-        const totalPages = Math.ceil(totalRows / limit);
-
-        const data = {
-            user: "User",
-            title: "Manager",
-            content: "User is an HR manager",
-            users: getUsers,
-            currentPage: page,
-            totalPages: totalPages,
-            hasNextPage: page < totalPages,
-            hasPrevPage: page > 1
-        };
-
-        res.render("dashboard", data);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("An error occurred");
-    }
-});
+/*************** Services Needed ****************/
+const { getUserDetails } = require("./services/authService");
+const { searchBooksByTitle, getBooksWithReviewsCount, getReviewsForBook } = require("./services/booksService");
+const { getUserByID, updateUser, deleteUser } = require("./services/usersService");
+const { createReview, getUserReviewsWithBookDetails } = require("./services/reviewService");
 
 
-app.get('/login', (req, res) => {
-    res.render('loginPage', { errorMessage: '' });
-});
 
-
-app.get('/register', (req, res) => {
-    res.render('registerPage', { errors: [] });
-});
-
+/*************** HomePage Route ****************/
 app.get('/home', (req, res) => {
     res.render('homePage');
 });
 
+/*************** Books Routes ****************/
 
 app.get('/books', async (req, res) => {
     const limit = 10;
@@ -166,12 +130,18 @@ app.get('/books/search', async (req, res) => {
     }
 });
 
-
-
-app.get('/recommendations', (req, res) => {
-    res.render('recommendationsPage');
+app.get('/bookReviews/:bookID', async (req, res) => {
+    const bookID = req.params.bookID;
+    try {
+        const reviews = await getReviewsForBook(bookID);
+        res.render('bookReviewsPage', { reviews: reviews });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error retrieving reviews');
+    }
 });
 
+/*************** Reviews Routes ****************/
 app.get('/reviews', async (req, res) => {
     if (!req.session.userID) {
         return res.redirect('/login');
@@ -185,20 +155,6 @@ app.get('/reviews', async (req, res) => {
         res.status(500).send('Error retrieving reviews');
     }
 });
-
-
-app.get('/bookReviews/:bookID', async (req, res) => {
-    const bookID = req.params.bookID;
-    try {
-        const reviews = await getReviewsForBook(bookID);
-        res.render('bookReviewsPage', { reviews: reviews });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error retrieving reviews');
-    }
-});
-
-
 
 
 app.get('/addReview', async (req, res) => {
@@ -231,6 +187,9 @@ app.post('/submitReview', async (req, res) => {
 });
 
 
+
+/*************** Account Routes ****************/
+
 app.get('/account', async (req, res) => {
 
     if (req.session.userID) {
@@ -257,13 +216,6 @@ app.get('/account', async (req, res) => {
         res.redirect('/login');
     }
 });
-
-app.post('/logout', (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/login');
-    });
-});
-
 
 app.post('/updateAccount', async (req, res) => {
     if (!req.session.userID) {
@@ -323,7 +275,50 @@ app.post('/deleteAccount', async (req, res) => {
     }
 });
 
+app.post('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login');
+    });
+});
 
+app.get('/dashboard', async (req, res) => {
+    const limit = 9;
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+    const offset = (page - 1) * limit;
+
+    try {
+        const getUsers = await query(`SELECT * FROM USERS LIMIT ${limit} OFFSET ${offset}`);
+        const countResult = await query(`SELECT COUNT(*) AS count FROM USERS`);
+        const totalRows = countResult[0].count;
+        const totalPages = Math.ceil(totalRows / limit);
+
+        const data = {
+            user: "User",
+            title: "Manager",
+            content: "User is an HR manager",
+            users: getUsers,
+            currentPage: page,
+            totalPages: totalPages,
+            hasNextPage: page < totalPages,
+            hasPrevPage: page > 1
+        };
+
+        res.render("dashboard", data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred");
+    }
+});
+
+
+app.get('/login', (req, res) => {
+    res.render('loginPage', { errorMessage: '' });
+});
+
+
+app.get('/register', (req, res) => {
+    res.render('registerPage', { errors: [] });
+});
 
 /**
  * Server Initialization

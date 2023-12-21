@@ -47,7 +47,8 @@
                             </td>
 
                             <td>
-                                <a href="/api/users/deleteUser/<%= users[i].userID%>" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="/api/users/deleteUser/<%= users[i].userID%>"
+                                    class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                         <% } %>
@@ -59,17 +60,17 @@
                 <input type="email" name="userEmail" placeholder="Email" required>
                 <input type="password" name="userPassword" placeholder="Password" required>
                 <input type="date" name="dob" placeholder=" Date of Birth " required>
-                <input class="btn btn-success" type="submit" value="Create user"/>
+                <input class="btn btn-success" type="submit" value="Create user" />
             </form>
 
-            
+
             <form action="/api/users/user" method="put">
                 <input type="hidden" name="userID" value="<%= user.userID %>">
                 <input type="text" name="userName" value="<%= user.userName %>" required>
                 <input type="email" name="userEmail" value="<%= user.userEmail %>" required>
                 <input type="password" name="userPassword" value="<%= user.userPassword %>" required>
                 <input type="date" name="dob" value="<%= user.dob %>" required>
-                <input class="btn btn-warning" type="submit" value="Update User"/>
+                <input class="btn btn-warning" type="submit" value="Update User" />
             </form>
 
         </div>

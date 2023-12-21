@@ -58,16 +58,6 @@ const getBookByID = async (bookID) => {
     }
 }
 
-const getBookByName = async (bookName)=>{
-    try{
-        let sql = `SELECT * FROM BOOKS WHERE bookName LIKE ?`;
-        const bookNameSearch = await query(sql, [`%${bookName}%`]);
-        return bookNameSearch;
-    }catch(error){
-        throw new Error(error);
-    }
-}
-
 /**
  * 
  * @param {string} title 
@@ -162,7 +152,10 @@ const deleteBook = async (id) => {
     }
 
 }
-
+/**
+ * 
+ * @returns A Promise that resolves to getting books reviews with their count
+ */
 const getBooksWithReviewsCount = async () =>{
     try{
     let sql = `SELECT 
@@ -192,7 +185,11 @@ const getBooksWithReviewsCount = async () =>{
         throw new Error(error);
     }
 }
-
+/**
+ * 
+ * @param {int} bookID 
+ * @returns  A Promise that resolves to getting book review based on his ID
+ */
 const getReviewsForBook = async (bookID) => {
     try {
         let sql = `
@@ -212,7 +209,11 @@ const getReviewsForBook = async (bookID) => {
 }
 
 
-
+/**
+ * 
+ * @param {VARCHAR} title 
+ * @returns  A Promise that resolves to finding a book by its Title
+ */
 const searchBooksByTitle = async (title) => {
     const likeTitle = `%${title}%`;
     const sql = "SELECT * FROM BOOKS WHERE title LIKE ?";

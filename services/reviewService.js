@@ -47,7 +47,7 @@ const createReview = async (userID, bookID, rating, reviewText) => {
     try {
 
         console.log('Creating review for BookID:', bookID);
-        
+
         if (!bookID) {
             throw new Error('Book ID is undefined.');
         }
@@ -132,11 +132,15 @@ const updateReview = async (reviewID, userID, bookID, rating, datePosted, review
 }
 
 
-
+/**
+ * 
+ * @param {int} userID 
+ * @returns A Promise that resolves to getting a review with book detail
+ */
 const getUserReviewsWithBookDetails = async (userID) => {
     try {
-        let sql = 
-        `
+        let sql =
+            `
             SELECT 
                 R.*, 
                 B.title, 

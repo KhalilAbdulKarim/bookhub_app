@@ -8,7 +8,7 @@ const { query } = require("../db/database");
 const getGenres = async () => {
     try {
         let sql = `SELECT * FROM GENRE`;
-        const genres= await query(sql);
+        const genres = await query(sql);
         return genres;
     } catch (error) {
         throw new Error(error);

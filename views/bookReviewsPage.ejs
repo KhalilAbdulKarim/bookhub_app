@@ -1,19 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Reviews</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Book Reviews</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 20px;
+    }
+
+    .review-card {
+      margin-bottom: 20px;
+      background-color: #ffffff;
+      border-radius: 0.25rem;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    .review-card-header {
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 0.15rem 1.25rem;
+      border-bottom: 1px solid #e2e2e2;
+    }
+
+    .review-card-body {
+      padding: 1rem;
+    }
+
+    .review-rating {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .review-text {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .review-date {
+      font-size: 0.875rem;
+      color: #ff0000;
+    }
+  </style>
 </head>
-<body>
-    <% reviews.forEach(function(review) { %>
-        <div class="review">
-          <h5><%= review.reviewerName %></h5>
-          <p>Rating: <%= review.rating %></p>
-          <p><%= review.reviewText %></p>
-          <p>Posted on: <%= review.datePosted.toISOString().split('T')[0] %></p>
-        </div>
-      <% }) %>
-      
+
+<body class="container">
+  <a href="/books" class="back-btn">&larr; Back to books</a>
+  <% reviews.forEach(function(review) { %>
+    <div class="review-card">
+      <div class="review-card-header">
+        <h5 class="mb-0">
+          <%= review.userName %>
+        </h5>
+      </div>
+      <div class="review-card-body">
+        <span class="review-rating">Rating: <%= review.rating %></span>
+        <p class="review-text">Review: <%= review.reviewText %>
+        </p>
+        <p class="review-date">Posted on: <%= new Date(review.datePosted).toISOString().split('T')[0]%>
+        </p>
+      </div>
+    </div>
+    <% }) %>
 </body>
+
 </html>

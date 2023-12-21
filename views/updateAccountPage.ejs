@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,19 @@
     <link rel="stylesheet" href="/account.css">
     <title>Update Account</title>
 </head>
+
 <body>
     <div class="form-container">
         <a href="/account" class="button back-btn">Back</a>
         <form action="/updateAccount" method="POST">
-            <input class="form-field" type="text" name="userName" value="<%= userName %>" placeholder="Username" required>
-            <input class="form-field" type="email" name="userEmail" value="<%= userEmail %>" placeholder="Email" required>
-            
+            <input class="form-field" type="text" name="userName" value="<%= userName %>" placeholder="Username"
+                required>
+            <input class="form-field" type="email" name="userEmail" value="<%= userEmail %>" placeholder="Email"
+                required>
+
             <div class="password-group">
-                <input class="form-field" type="password" id="password" name="userPassword" placeholder="Password" required>
+                <input class="form-field" type="password" id="password" name="userPassword" placeholder="Password"
+                    required>
                 <button type="button" class="form-button" onclick="togglePasswordVisibility()">Show</button>
             </div>
             <input class="form-field" type="date" name="dob" value="<%= dob %>" required>
@@ -33,7 +38,8 @@
             }
         </script>
     </div>
-    
-    
+
+
 </body>
+
 </html>

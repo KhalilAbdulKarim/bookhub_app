@@ -1,8 +1,5 @@
 const { query } = require("../db/database");
 
-
-
-
 /**
  * Authenticate a user.
  * @param {String} userEmail - The Email of the user.
@@ -57,7 +54,7 @@ const authenticateAuthor = async (authorEmail, authorPassword) => {
     }
 }
 
-module.exports= {
+module.exports = {
     authenticateUser,
     authenticateAuthor,
     getUserDetails,
