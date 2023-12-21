@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Add Review</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <form action="/submitReview" method="POST">
+        <input type="hidden" name="bookID" value="<%= bookID %>">
+        <input type="hidden" name="userID" value="<%= userID %>">
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <label for="reviewText">Review:</label>
+        <textarea name="reviewText" id="reviewText" required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+</body>
+</html>

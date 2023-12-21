@@ -43,8 +43,14 @@ const getReviewByID = async (id) => {
  * @returns A Promise that resolves to the newly created Review object
  */
 
-const createReview = async (userID, bookID, rating, datePosted, reviewText) => {
+const createReview = async (userID, bookID, rating, reviewText) => {
     try {
+
+        console.log('Creating review for BookID:', bookID);
+        
+        if (!bookID) {
+            throw new Error('Book ID is undefined.');
+        }
         // Check if userID exists in the users table
         const userExists = await query(`SELECT 1 FROM USERS WHERE userID = ?`, [userID]);
         if (!userExists.length) {
@@ -60,10 +66,10 @@ const createReview = async (userID, bookID, rating, datePosted, reviewText) => {
         // Insert the new review
         let sql = `
             INSERT INTO REVIEWS (userID, bookID, rating, datePosted, reviewText)
-            VALUES (?, ?, ?, ?, ?);
+            VALUES (?, ?, ?,NOW(), ?);
         `;
 
-        const result = await query(sql, [userID, bookID, rating, moment(datePosted).format("YYYY-MM-DD"), reviewText]);
+        const result = await query(sql, [userID, bookID, rating, reviewText]);
 
 
         let insertedReview = await query(`SELECT * FROM REVIEWS WHERE reviewID = ?`, [result?.insertId]);

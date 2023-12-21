@@ -65,6 +65,7 @@ const loginRoute = require('./routes/loginAuthRoute');
 const { getUserDetails} = require("./services/authService");
 const { getBooks,searchBooksByTitle} = require("./services/booksService");
 const {getUserByID,updateUser,deleteUser} = require ("./services/usersService");
+const {createReview}= require("./services/reviewService");
 app.use(loginRoute);
 
 
@@ -113,10 +114,23 @@ app.get('/home', (req, res) => {
 
 
 app.get('/books', async (req, res) => {
+    const limit = 10;
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
     try {
-        const books = await getBooks();
+        const allBooks = await getBooks();
+        const totalRows = allBooks.length;
+        const totalPages = Math.ceil(totalRows / limit);
+        const startIndex = (page - 1) * limit;
+        const endIndex = startIndex + limit;
+        const booksPerPage = allBooks.slice(startIndex, endIndex);
+        
         res.render('booksPage', {
-            booksList: books 
+            booksList: booksPerPage,
+            currentPage: page,
+            totalPages: totalPages,
+            hasNextPage: page < totalPages,
+            hasPrevPage: page > 1
         });
     } catch (error) {
         console.error(error);
@@ -126,16 +140,32 @@ app.get('/books', async (req, res) => {
 
 app.get('/books/search', async (req, res) => {
     const searchQuery = req.query.search;
+    const limit = 10; 
+    const page = req.query.page ? parseInt(req.query.page) : 1;
+
+
     try {
-        const searchResult = await searchBooksByTitle(searchQuery);
+        const allSearchResults = await searchBooksByTitle(searchQuery);
+        const totalRows = allSearchResults.length;
+        const totalPages = Math.ceil(totalRows / limit);
+        const startIndex = (page - 1) * limit;
+        const endIndex = startIndex + limit;
+        const booksPerPage = allSearchResults.slice(startIndex, endIndex);
+
         res.render('booksPage', {
-            booksList: searchResult
+            booksList: booksPerPage,
+            currentPage: page,
+            totalPages: totalPages,
+            hasNextPage: page < totalPages,
+            hasPrevPage: page > 1,
+            searchQuery: searchQuery,
         });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error performing the search');
     }
 });
+
 
 
 app.get('/recommendations', (req, res) => {
@@ -145,6 +175,39 @@ app.get('/recommendations', (req, res) => {
 app.get('/reviews', (req, res) => {
     res.render('reviewsPage');
 });
+
+app.get('/addReview', async (req, res) => {
+    if (!req.session.userID) {
+        return res.redirect('/login');
+    }
+    
+    const bookID = req.query.bookID;
+    const userID = req.session.userID;
+
+    console.log("Received bookID for review page:", bookID);
+
+    res.render('addReviewPage', { bookID, userID });
+});
+
+
+app.post('/submitReview', async (req, res) => {
+    const { userID, bookID, rating, reviewText } = req.body;
+
+    console.log('Received Review Data:', { userID, bookID, rating, reviewText });
+
+    try {
+        const review = await createReview(userID, bookID, rating, reviewText);
+        console.log('Review Created:', review);
+        res.redirect('/books');
+    } catch (error) {
+        console.error('Error in submitting review:', error.message);
+        res.status(500).send('Error in submitting review: ' + error.message);
+    }
+});
+
+
+
+
 
 app.get('/account', async (req, res) => {
 
@@ -209,8 +272,6 @@ app.get('/updateAccount', async (req, res) => {
             userEmail: userDetails.userEmail,
             dob: userDetails.dob,
         });
-        //
-        req.session.destroy();
     } catch (error) {
         console.log(error);
         res.status(500).send('Server error occurred.');

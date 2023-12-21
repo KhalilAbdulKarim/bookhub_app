@@ -8,10 +8,11 @@ const moment = require("moment");
 
 const getBooks = async () => {
     try {
-        let sql = `SELECT B.title, B.publishedDate, B.ISBN, B.authorID, G.genreName,A.authorName,B.synopsis
-                    FROM BOOKS B
-                    INNER JOIN GENRE G ON B.genreID = G.genreID
-                    INNER JOIN AUTHORS A ON B.authorID = A.authorID;`;
+        let sql = `SELECT B.bookID, B.title, B.publishedDate, B.ISBN, B.authorID, G.genreName, A.authorName, B.synopsis
+        FROM BOOKS B
+        INNER JOIN GENRE G ON B.genreID = G.genreID
+        INNER JOIN AUTHORS A ON B.authorID = A.authorID;
+        `;
         const books = await query(sql);
         return books;
     } catch (error) {
