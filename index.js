@@ -62,10 +62,10 @@ const userRoute = require('./routes/user.route');
 app.use(userRoute);
 
 const loginRoute = require('./routes/loginAuthRoute');
-const { getUserDetails} = require("./services/authService");
-const { getBooks,searchBooksByTitle} = require("./services/booksService");
-const {getUserByID,updateUser,deleteUser} = require ("./services/usersService");
-const {createReview}= require("./services/reviewService");
+const { getUserDetails } = require("./services/authService");
+const { getBooks, searchBooksByTitle } = require("./services/booksService");
+const { getUserByID, updateUser, deleteUser } = require("./services/usersService");
+const { createReview } = require("./services/reviewService");
 app.use(loginRoute);
 
 
@@ -124,7 +124,7 @@ app.get('/books', async (req, res) => {
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
         const booksPerPage = allBooks.slice(startIndex, endIndex);
-        
+
         res.render('booksPage', {
             booksList: booksPerPage,
             currentPage: page,
@@ -140,7 +140,7 @@ app.get('/books', async (req, res) => {
 
 app.get('/books/search', async (req, res) => {
     const searchQuery = req.query.search;
-    const limit = 10; 
+    const limit = 10;
     const page = req.query.page ? parseInt(req.query.page) : 1;
 
 
@@ -180,7 +180,7 @@ app.get('/addReview', async (req, res) => {
     if (!req.session.userID) {
         return res.redirect('/login');
     }
-    
+
     const bookID = req.query.bookID;
     const userID = req.session.userID;
 
@@ -279,7 +279,7 @@ app.get('/updateAccount', async (req, res) => {
 });
 
 app.post('/deleteAccount', async (req, res) => {
-    const { passwordToDelete } = req.body; 
+    const { passwordToDelete } = req.body;
 
     if (!req.session.userID) {
         return res.status(401).send('User not logged in');
