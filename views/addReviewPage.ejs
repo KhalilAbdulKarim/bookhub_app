@@ -1,26 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Add Review</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bookPDesign.css">
+    <style>
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 8px rgba(38, 38, 38, 0.2);
+            backdrop-filter: blur(10px); 
+        }
+
+        .form-container h2 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .form-container .btn-primary {
+            width: 100%; 
+            padding: .75rem; 
+            margin-top: 2rem; 
+            background-color: #0056b3; 
+            border: none; 
+        }
+
+        .form-container .btn-primary:hover {
+            background-color: #004494; 
+        }
+
+        .form-container .form-control,
+        .form-container .form-select {
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+             
+        }
+
+        .form-container label {
+            font-weight: 300;
+        }
+    </style>
 </head>
 <body>
-    <form action="/submitReview" method="POST">
-        <input type="hidden" name="bookID" value="<%= bookID %>">
-        <input type="hidden" name="userID" value="<%= userID %>">
-        <label for="rating">Rating:</label>
-        <select name="rating" id="rating" required>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <label for="reviewText">Review:</label>
-        <textarea name="reviewText" id="reviewText" required></textarea>
-        <button type="submit">Submit Review</button>
-    </form>
+    <div class="overlay"></div> 
+    <div class="container">
+        <div class="form-container mx-auto">
+            <a href="/books" class="back-btn">&larr; Back to books</a>
+            <h2 class="text-center">Add a Review</h2>
+            <form action="/submitReview" method="POST">
+                <input type="hidden" name="bookID" value="<%= bookID %>">
+                <input type="hidden" name="userID" value="<%= userID %>">
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating:</label>
+                    <select name="rating" id="rating" class="form-select" required>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excellent</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="reviewText" class="form-label">Review:</label>
+                    <textarea name="reviewText" id="reviewText" class="form-control" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

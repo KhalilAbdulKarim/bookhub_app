@@ -131,6 +131,38 @@ const updateReview = async (reviewID, userID, bookID, rating, datePosted, review
     }
 }
 
+
+
+
+const getUserReviewsWithBookDetails = async (userID) => {
+    try {
+        let sql = `
+            SELECT 
+                R.*, 
+                B.title, 
+                B.publishedDate, 
+                B.ISBN, 
+                A.authorName, 
+                G.genreName
+            FROM 
+                REVIEWS R
+            JOIN 
+                BOOKS B ON R.bookID = B.bookID
+            JOIN 
+                AUTHORS A ON B.authorID = A.authorID
+            JOIN 
+                GENRE G ON B.genreID = G.genreID
+            WHERE 
+                R.userID = ?
+        `;
+        const reviews = await query(sql, [userID]);
+        return reviews;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+
 /**
  * 
  * @param {int} id The ID of the review to delete passed as parameter
@@ -153,5 +185,5 @@ module.exports = {
     createReview,
     updateReview,
     deleteReview,
-
+    getUserReviewsWithBookDetails,
 }

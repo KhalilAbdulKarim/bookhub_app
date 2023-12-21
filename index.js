@@ -65,7 +65,7 @@ const loginRoute = require('./routes/loginAuthRoute');
 const { getUserDetails } = require("./services/authService");
 const { getBooks, searchBooksByTitle } = require("./services/booksService");
 const { getUserByID, updateUser, deleteUser } = require("./services/usersService");
-const { createReview } = require("./services/reviewService");
+const { createReview,getUserReviewsWithBookDetails } = require("./services/reviewService");
 app.use(loginRoute);
 
 
@@ -172,9 +172,21 @@ app.get('/recommendations', (req, res) => {
     res.render('recommendationsPage');
 });
 
-app.get('/reviews', (req, res) => {
-    res.render('reviewsPage');
+app.get('/reviews', async (req, res) => {
+    if (!req.session.userID) {
+        return res.redirect('/login');
+    }
+    try {
+        const userID = req.session.userID;
+        const reviews = await getUserReviewsWithBookDetails(userID);
+        res.render('reviewsPage', { reviews: reviews });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error retrieving reviews');
+    }
 });
+
+
 
 app.get('/addReview', async (req, res) => {
     if (!req.session.userID) {
@@ -204,9 +216,6 @@ app.post('/submitReview', async (req, res) => {
         res.status(500).send('Error in submitting review: ' + error.message);
     }
 });
-
-
-
 
 
 app.get('/account', async (req, res) => {

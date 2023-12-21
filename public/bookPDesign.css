@@ -88,18 +88,18 @@ h1, .card-title {
 }
 
 .card-title {
-    font-family: 'Arial', sans-serif; /* Specify the font-family for the title */
-    font-weight: bold; /* Optional: make the title bold */
+    font-family: 'Arial', sans-serif;
+    font-weight: bold; 
 }
 
 .card-subtitle {
-    font-family: 'Times New Roman', serif; /* Different font for the subtitle */
-    font-style: italic; /* Optional: italicize the subtitle */
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
 }
 
 .card-text {
     font-family: 'Times New Roman', serif;
-    font-weight: bold; /* Another font option for the text */
-    font-size: 15px; /* You can also change the font size */
+    font-weight: bold; 
+    font-size: 15px; 
 }
 
