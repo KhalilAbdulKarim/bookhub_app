@@ -216,10 +216,30 @@ const getReviewsForBook = async (bookID) => {
  */
 const searchBooksByTitle = async (title) => {
     const likeTitle = `%${title}%`;
-    const sql = "SELECT * FROM BOOKS WHERE title LIKE ?";
+    const sql = `
+        SELECT 
+            B.bookID,
+            B.title, 
+            B.publishedDate, 
+            B.ISBN, 
+            A.authorName, 
+            G.genreName,
+            B.synopsis,
+            COUNT(R.reviewID) AS reviewCount
+        FROM 
+            BOOKS B
+            LEFT JOIN AUTHORS A ON B.authorID = A.authorID
+            LEFT JOIN GENRE G ON B.genreID = G.genreID
+            LEFT JOIN REVIEWS R ON B.bookID = R.bookID
+        WHERE 
+            B.title LIKE ?
+        GROUP BY 
+            B.bookID;
+    `;
     const results = await query(sql, [likeTitle]);
     return results;
 };
+
 
 
 module.exports = {

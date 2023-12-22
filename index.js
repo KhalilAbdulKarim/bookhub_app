@@ -165,9 +165,10 @@ app.get('/addReview', async (req, res) => {
     const bookID = req.query.bookID;
     const userID = req.session.userID;
 
+
     console.log("Received bookID for review page:", bookID);
 
-    res.render('addReviewPage', { bookID, userID });
+    res.render('addReviewPage', { bookID, userID});
 });
 
 
@@ -253,7 +254,7 @@ app.get('/updateAccount', async (req, res) => {
 });
 
 app.post('/deleteAccount', async (req, res) => {
-    const { passwordToDelete } = req.body;
+    const { password } = req.body; 
 
     if (!req.session.userID) {
         return res.status(401).send('User not logged in');
@@ -262,7 +263,11 @@ app.post('/deleteAccount', async (req, res) => {
     try {
         const userDetails = await getUserByID(req.session.userID);
 
-        if (userDetails && userDetails.userPassword === passwordToDelete) {
+        if (!userDetails) {
+            return res.status(404).send('User not found');
+        }
+
+        if (userDetails.userPassword === password) { 
             await deleteUser(req.session.userID);
             req.session.destroy();
             res.redirect('/login');
@@ -274,6 +279,7 @@ app.post('/deleteAccount', async (req, res) => {
         res.status(500).send('An error occurred');
     }
 });
+
 
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
