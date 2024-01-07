@@ -326,6 +326,20 @@ app.get('/register', (req, res) => {
     res.render('registerPage', { errors: [] });
 });
 
+/*************** Inbox Routes ****************/
+
+app.get('/inbox',(req,res)=>{
+    res.render('inboxPage')
+});
+
+// In the route where you want to handle chat messages
+app.post('/send-message', (req, res) => {
+    const message = req.body.message;
+    io.emit('chat message', message); // Broadcast the message to all connected clients
+    res.send('Message sent successfully');
+});
+
+
 /**
  * Server Initialization
  */
